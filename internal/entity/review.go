@@ -2,13 +2,11 @@ package entity
 
 import (
 	"github.com/savioafs/book-market/internal/utils"
-	"gorm.io/gorm"
 	"time"
 )
 
 type Review struct {
-	gorm.Model
-	ID        string    `json:"id"`
+	ID        string    `json:"id" gorm:"primary_key"`
 	Sale      Sale      `json:"sale"`
 	Rating    float32   `json:"rating"`
 	Comment   string    `json:"comment"`

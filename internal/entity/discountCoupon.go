@@ -2,14 +2,12 @@ package entity
 
 import (
 	"github.com/savioafs/book-market/internal/utils"
-	"gorm.io/gorm"
 	"strings"
 	"time"
 )
 
 type DiscountCoupon struct {
-	gorm.Model
-	ID                 string    `json:"id"`
+	ID                 string    `json:"id" gorm:"primary_key"`
 	Code               string    `json:"code"`
 	DiscountPercentage float64   `json:"discount_percent"`
 	ExpirationDate     time.Time `json:"expiration_date"`

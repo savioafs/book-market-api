@@ -2,16 +2,15 @@ package entity
 
 import (
 	"github.com/savioafs/book-market/internal/utils"
-	"gorm.io/gorm"
 	"time"
 )
 
 type Sale struct {
-	gorm.Model
-	ID             string         `json:"id"`
+	ID             string         `json:"id" gorm:"primary_key"`
 	Code           string         `json:"code"`
-	Books          []Book         `json:"books"`
-	Seller         Seller         `json:"seller"`
+	Books          []Book         `json:"books" gorm:"many2many:sale_books"`
+	SellerID       string         `json:"seller_id"`
+	Seller         Seller         `json:"seller" gorm:"foreignKey:SellerID"`
 	BuyerName      string         `json:"buyer_name"`
 	Quantity       int            `json:"quantity"`
 	TotalPrice     float64        `json:"total_price"`
@@ -42,6 +41,7 @@ func NewSale(books []Book, seller Seller, buyerName string, discountCoupon Disco
 		ID:             id,
 		Code:           code,
 		Books:          books,
+		SellerID:       seller.ID,
 		Seller:         seller,
 		BuyerName:      buyerName,
 		Quantity:       len(books),

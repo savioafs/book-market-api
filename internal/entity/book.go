@@ -3,7 +3,6 @@ package entity
 import (
 	"errors"
 	"github.com/savioafs/book-market/internal/utils"
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -20,8 +19,7 @@ var (
 )
 
 type Book struct {
-	gorm.Model
-	ID            string    `json:"id"`
+	ID            string    `json:"id" gorm:"primary_key"`
 	Title         string    `json:"title"`
 	ImageURL      string    `json:"image_url"`
 	Author        string    `json:"author"`
@@ -35,15 +33,16 @@ type Book struct {
 	CreatedAt     time.Time `json:"created_at"`
 }
 
-func NewBook(title, author, publisher, isbn, category, description string, price float64, stock, publishedYear int) (*Book, error) {
+func NewBook(title, imgURL, author, publisher, isbn, category, description string, price float64, stock, publishedYear int) (Book, error) {
 	id, err := utils.NewID()
 	if err != nil {
-		return nil, err
+		return Book{}, err
 	}
 
-	book := &Book{
+	book := Book{
 		ID:            id,
 		Title:         title,
+		ImageURL:      imgURL,
 		Author:        author,
 		Publisher:     publisher,
 		ISBN:          isbn,
@@ -53,6 +52,10 @@ func NewBook(title, author, publisher, isbn, category, description string, price
 		PublishedYear: publishedYear,
 		Description:   description,
 		CreatedAt:     time.Now(),
+	}
+
+	if err := book.Validate(); err != nil {
+		return Book{}, err
 	}
 
 	return book, nil

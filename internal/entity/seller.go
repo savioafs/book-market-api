@@ -2,13 +2,11 @@ package entity
 
 import (
 	"github.com/savioafs/book-market/internal/utils"
-	"gorm.io/gorm"
 	"time"
 )
 
 type Seller struct {
-	gorm.Model
-	ID        string    `json:"id"`
+	ID        string    `json:"id" gorm:"primary_key"`
 	Code      string    `json:"code"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
