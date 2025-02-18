@@ -1,4 +1,4 @@
-package model
+package entity
 
 import (
 	"github.com/savioafs/book-market/utils"
@@ -8,13 +8,12 @@ import (
 type Review struct {
 	ID        string    `json:"id"`
 	Sale      Sale      `json:"sale"`
-	Seller    Seller    `json:"seller"`
-	Rating    int       `json:"rating"`
+	Rating    float32   `json:"rating"`
 	Comment   string    `json:"comment"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
-func NewReview(sale Sale, seller Seller, rating int, comment string) (*Review, error) {
+func NewReview(sale Sale, rating float32, comment string) (*Review, error) {
 	id, err := utils.NewID()
 	if err != nil {
 		return nil, err
@@ -23,7 +22,6 @@ func NewReview(sale Sale, seller Seller, rating int, comment string) (*Review, e
 	review := &Review{
 		ID:        id,
 		Sale:      sale,
-		Seller:    seller,
 		Rating:    rating,
 		Comment:   comment,
 		CreatedAt: time.Now(),

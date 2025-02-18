@@ -1,4 +1,4 @@
-package model
+package entity
 
 import (
 	"github.com/savioafs/book-market/utils"

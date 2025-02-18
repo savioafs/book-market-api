@@ -1,4 +1,4 @@
-package model
+package entity
 
 import (
 	"github.com/savioafs/book-market/utils"
@@ -19,7 +19,7 @@ type Sale struct {
 	CreatedAt      time.Time      `json:"created_at"`
 }
 
-func NewSale(book Book, seller Seller, buyerName string, quantity int, totalPrice float64, discountCoupon DiscountCoupon) (*Sale, error) {
+func NewSale(book Book, seller Seller, buyerName string, quantity int, discountCoupon DiscountCoupon) (*Sale, error) {
 	id, err := utils.NewID()
 	if err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func NewSale(book Book, seller Seller, buyerName string, quantity int, totalPric
 		Seller:         seller,
 		BuyerName:      buyerName,
 		Quantity:       quantity,
-		TotalPrice:     totalPrice,
+		TotalPrice:     book.Price * float64(quantity),
 		SaleDate:       time.Now(),
 		DiscountCoupon: discountCoupon,
 		IsReviewed:     false,

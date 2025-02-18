@@ -1,7 +1,8 @@
-package model
+package entity
 
 import (
 	"github.com/savioafs/book-market/utils"
+	"strings"
 	"time"
 )
 
@@ -15,20 +16,15 @@ type DiscountCoupon struct {
 	CreatedAt          time.Time `json:"created_at"`
 }
 
-func NewDiscountCoupon(prefix string, discountPercentage float64, expirationDate time.Time, usageLimit int, usedCount int) (*DiscountCoupon, error) {
+func NewDiscountCoupon(code string, discountPercentage float64, expirationDate time.Time, usageLimit int, usedCount int) (*DiscountCoupon, error) {
 	id, err := utils.NewID()
-	if err != nil {
-		return nil, err
-	}
-
-	code, err := utils.NewCode(prefix)
 	if err != nil {
 		return nil, err
 	}
 
 	discountCoupon := &DiscountCoupon{
 		ID:                 id,
-		Code:               code,
+		Code:               strings.ToUpper(code),
 		DiscountPercentage: discountPercentage,
 		ExpirationDate:     expirationDate,
 		UsageLimit:         usageLimit,
