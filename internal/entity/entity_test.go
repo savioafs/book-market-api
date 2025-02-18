@@ -25,6 +25,13 @@ var bookInputTest = Book{
 	Description:   "Description One",
 }
 
+var booksInputTest = []Book{
+	bookInputTest,
+	bookInputTest,
+	bookInputTest,
+	bookInputTest,
+}
+
 var discountInputTest = DiscountCoupon{
 	Code:               "february10",
 	DiscountPercentage: 10,
@@ -62,6 +69,8 @@ func Test_Models(t *testing.T) {
 	as.NotNil(book)
 	as.NotNil(book.ID)
 	as.NotNil(book.CreatedAt)
+	err = book.Validate()
+	as.Nil(err)
 
 	discountCoupon, err := NewDiscountCoupon(
 		discountInputTest.Code,
@@ -85,11 +94,13 @@ func Test_Models(t *testing.T) {
 	as.NotNil(seller.Code)
 	as.NotNil(seller.CreatedAt)
 
-	sale, err := NewSale(*book, *seller, saleInputTest.BuyerName, saleInputTest.Quantity, *discountCoupon)
+	sale, err := NewSale(booksInputTest, *seller, saleInputTest.BuyerName, *discountCoupon)
 	as.Nil(err)
 	as.NotNil(sale.ID)
 	as.NotNil(sale.Code)
 	as.NotNil(sale.CreatedAt)
+	as.Equal(sale.Quantity, len(booksInputTest))
+	as.Equal(sale.TotalPrice, 443.96)
 
 	review, err := NewReview(*sale, reviewInputTest.Rating, reviewInputTest.Comment)
 	as.Nil(err)

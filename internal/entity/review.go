@@ -1,11 +1,13 @@
 package entity
 
 import (
-	"github.com/savioafs/book-market/utils"
+	"github.com/savioafs/book-market/internal/utils"
+	"gorm.io/gorm"
 	"time"
 )
 
 type Review struct {
+	gorm.Model
 	ID        string    `json:"id"`
 	Sale      Sale      `json:"sale"`
 	Rating    float32   `json:"rating"`

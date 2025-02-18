@@ -1,14 +1,16 @@
 package entity
 
 import (
-	"github.com/savioafs/book-market/utils"
+	"github.com/savioafs/book-market/internal/utils"
+	"gorm.io/gorm"
 	"time"
 )
 
 type Sale struct {
+	gorm.Model
 	ID             string         `json:"id"`
 	Code           string         `json:"code"`
-	Book           Book           `json:"book"`
+	Books          []Book         `json:"books"`
 	Seller         Seller         `json:"seller"`
 	BuyerName      string         `json:"buyer_name"`
 	Quantity       int            `json:"quantity"`
@@ -19,25 +21,31 @@ type Sale struct {
 	CreatedAt      time.Time      `json:"created_at"`
 }
 
-func NewSale(book Book, seller Seller, buyerName string, quantity int, discountCoupon DiscountCoupon) (*Sale, error) {
+func NewSale(books []Book, seller Seller, buyerName string, discountCoupon DiscountCoupon) (*Sale, error) {
 	id, err := utils.NewID()
 	if err != nil {
 		return nil, err
 	}
 
-	code, err := utils.NewCode(book.Title)
+	code, err := utils.NewCode(seller.Code, 12)
 	if err != nil {
 		return nil, err
+	}
+
+	totalPrice := 0.0
+
+	for _, book := range books {
+		totalPrice += book.Price
 	}
 
 	sale := &Sale{
 		ID:             id,
 		Code:           code,
-		Book:           book,
+		Books:          books,
 		Seller:         seller,
 		BuyerName:      buyerName,
-		Quantity:       quantity,
-		TotalPrice:     book.Price * float64(quantity),
+		Quantity:       len(books),
+		TotalPrice:     totalPrice,
 		SaleDate:       time.Now(),
 		DiscountCoupon: discountCoupon,
 		IsReviewed:     false,

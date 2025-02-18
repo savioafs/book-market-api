@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/savioafs/book-market/server/routes"
+	"github.com/savioafs/book-market/internal/server/routes"
 	"log"
 )
 

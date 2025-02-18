@@ -1,11 +1,13 @@
 package entity
 
 import (
-	"github.com/savioafs/book-market/utils"
+	"github.com/savioafs/book-market/internal/utils"
+	"gorm.io/gorm"
 	"time"
 )
 
 type Seller struct {
+	gorm.Model
 	ID        string    `json:"id"`
 	Code      string    `json:"code"`
 	Name      string    `json:"name"`
@@ -22,7 +24,7 @@ func NewSeller(name, email, phone string) (*Seller, error) {
 		return nil, err
 	}
 
-	code, err := utils.NewCode(name)
+	code, err := utils.NewCode(name, 6)
 	if err != nil {
 		return nil, err
 	}

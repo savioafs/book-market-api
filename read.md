@@ -17,3 +17,9 @@ da venda (codigo do vendedor)
 digitar o codigo da venda e fazer uma reclamação da pessoa
 
 determinar a quantiade de estrelas de um vendedor de acordo com a reputação dele
+
+
+fazer um perfil do vendedor onde vemos quantas estrelas ele tem
+e quantas vendas feitas por mês e por data para termos um overview de vendas
+pegamos as vendas dele e analisamos quantas vendas foram feitas
+e o valor total vendido e as avaliações gerais

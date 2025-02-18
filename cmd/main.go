@@ -1,6 +1,8 @@
 package main
 
-import "github.com/savioafs/book-market/server"
+import (
+	"github.com/savioafs/book-market/internal/server"
+)
 
 func main() {
 
