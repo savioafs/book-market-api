@@ -15,3 +15,5 @@ vai dar para procurar por editora também
 ele pode entrar no site e avaliar a venda atraves do identificador unico
 da venda (codigo do vendedor)
 digitar o codigo da venda e fazer uma reclamação da pessoa
+
+determinar a quantiade de estrelas de um vendedor de acordo com a reputação dele
