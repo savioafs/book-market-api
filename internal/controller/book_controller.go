@@ -53,6 +53,22 @@ func (ct *BookController) GetAllBooks(c *gin.Context) {
 	c.JSON(http.StatusOK, books)
 }
 
+func (ct *BookController) GetBookByID(c *gin.Context) {}
+
+func (ct *BookController) GetBooksByCategory(c *gin.Context) {}
+
+func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {}
+
+func (ct *BookController) GetBooksByAuthor(c *gin.Context) {}
+
+func (ct *BookController) UpdateBook(c *gin.Context) {}
+
+func (ct *BookController) UpdateStockBookSale(c *gin.Context) {}
+
+func (ct *BookController) UpdateStockBookRenew(c *gin.Context) {}
+
+func (ct *BookController) DeleteBook(c *gin.Context) {}
+
 /*
 
 func (bc *BookController) CreateBook(c *gin.Context) {
