@@ -67,14 +67,15 @@ func (r *BookRepositoryGorm) GetBooksByAuthor(author string) ([]*entity.Book, er
 func (r *BookRepositoryGorm) UpdateBook(book *entity.Book) error {
 	err := r.DB.Model(&entity.Book{}).Where("id = ?", book.ID).Updates(map[string]interface{}{
 		"title":          book.Title,
+		"image_url":      book.ImageURL,
 		"author":         book.Author,
 		"publisher":      book.Publisher,
 		"isbn":           book.ISBN,
+		"category":       book.Category,
+		"description":    book.Description,
 		"price":          book.Price,
 		"stock":          book.Stock,
-		"category":       book.Category,
 		"published_year": book.PublishedYear,
-		"description":    book.Description,
 		"updated_at":     time.Now(),
 	}).Error
 
