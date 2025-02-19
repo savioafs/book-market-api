@@ -17,6 +17,19 @@ func (r *DiscountCouponRepositoryGorm) CreateDiscountCoupon(coupon *entity.Disco
 	return r.DB.Create(coupon).Error
 }
 
+func (r *DiscountCouponRepositoryGorm) CountUse(id string) error {
+	var discountCoupon *entity.DiscountCoupon
+
+	err := r.DB.First(&discountCoupon, "id = ?", id).Error
+	if err != nil {
+		return err
+	}
+
+	discountCoupon.UsedCount += 1
+
+	return r.DB.Save(&discountCoupon).Error
+}
+
 func (r *DiscountCouponRepositoryGorm) GetDiscountCoupon(id string) (*entity.DiscountCoupon, error) {
 	var discountCoupon *entity.DiscountCoupon
 

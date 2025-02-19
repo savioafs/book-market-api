@@ -1,9 +1,17 @@
 package entity
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/utils"
 	"strings"
 	"time"
+)
+
+var (
+	ErrCodeIsRequired               = errors.New("code is required")
+	ErrDiscountPercentageIsRequired = errors.New("discount percentage is required")
+	ErrExpirationDateIsRequired     = errors.New("expiration date is required")
+	ErrUsageLimitIsRequired         = errors.New("usage limit is required")
 )
 
 type DiscountCoupon struct {
@@ -34,5 +42,30 @@ func NewDiscountCoupon(code string, discountPercentage float64, expirationDate t
 		CreatedAt:          time.Now(),
 	}
 
+	err = discountCoupon.Validate()
+	if err != nil {
+		return nil, err
+	}
+
 	return discountCoupon, nil
+}
+
+func (d *DiscountCoupon) Validate() error {
+	if d.Code == "" {
+		return ErrCodeIsRequired
+	}
+
+	if d.DiscountPercentage <= 0 {
+		return ErrDiscountPercentageIsRequired
+	}
+
+	if d.ExpirationDate.IsZero() {
+		return ErrExpirationDateIsRequired
+	}
+
+	if d.UsageLimit <= 0 {
+		return ErrUsageLimitIsRequired
+	}
+
+	return nil
 }

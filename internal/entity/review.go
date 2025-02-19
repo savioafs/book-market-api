@@ -1,8 +1,15 @@
 package entity
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/utils"
 	"time"
+)
+
+var (
+	ErrSaleIsRequired       = errors.New("sale is required")
+	ErrRatingIsRequired     = errors.New("rating is required")
+	ErrCommissionIsRequired = errors.New("commission is required")
 )
 
 type Review struct {
@@ -28,5 +35,26 @@ func NewReview(sale Sale, rating float32, comment string) (*Review, error) {
 		CreatedAt: time.Now(),
 	}
 
+	err = review.Validate()
+	if err != nil {
+		return nil, err
+	}
+
 	return review, nil
+}
+
+func (r *Review) Validate() error {
+	if r.Sale.ID == "" {
+		return ErrSaleIsRequired
+	}
+
+	if r.Rating == 0.0 {
+		return ErrRatingIsRequired
+	}
+
+	if r.Comment == "" {
+		return ErrCommissionIsRequired
+	}
+
+	return nil
 }

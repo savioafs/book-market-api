@@ -1,8 +1,15 @@
 package entity
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/utils"
 	"time"
+)
+
+var (
+	ErrBookIsRequired   = errors.New("book is required")
+	ErrSellerIsRequired = errors.New("seller is required")
+	ErrBuyerIsRequired  = errors.New("buyer is required")
 )
 
 type Sale struct {
@@ -54,5 +61,27 @@ func NewSale(books []Book, seller Seller, buyerName string, discountCoupon Disco
 		CreatedAt:      time.Now(),
 	}
 
+	err = sale.Validate()
+	if err != nil {
+		return nil, err
+	}
+
 	return sale, nil
+}
+
+func (s *Sale) Validate() error {
+
+	if s.Books == nil {
+		return ErrBookIsRequired
+	}
+
+	if s.Seller.ID == "" {
+		return ErrSellerIsRequired
+	}
+
+	if s.BuyerName == "" {
+		return ErrBuyerIsRequired
+	}
+
+	return nil
 }
