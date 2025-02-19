@@ -15,7 +15,6 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 	bookRepositoryGorm := repository.NewBookRepositoryGorm(db)
 	bookUseCase := usecase.NewBookUseCase(bookRepositoryGorm)
 	bookController := controller.NewBookController(*bookUseCase)
-
 	book := router.Group("/book")
 	{
 		book.POST("/", bookController.CreateBook)
@@ -24,36 +23,36 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 
 	// discount coupons
 	discountCouponRepositoryGorm := repository.NewDiscountCouponRepositoryGorm(db)
-	// discountCouponUseCase
-	// discountCouponController
+	discountCouponUseCase := usecase.NewDiscountCouponUseCase(discountCouponRepositoryGorm)
+	discountCouponController := controller.NewDiscountCouponController(*discountCouponUseCase)
 	discountCoupon := router.Group("/discount-coupon")
 	{
-		discountCoupon.POST("/")
+		discountCoupon.POST("/", discountCouponController.CreateDiscountCoupon)
 	}
 
 	// review
 	reviewRepositoryGorm := repository.NewReviewRepositoryGorm(db)
-	// reviewUseCase
-	// reviewController
-	review := router.Group("/discount-coupon")
+	reviewUseCase := usecase.NewReviewUseCase(reviewRepositoryGorm)
+	reviewController := controller.NewReviewController(*reviewUseCase)
+	review := router.Group("/review")
 	{
 		review.POST("/")
 	}
 
 	// sale
 	saleRepositoryGorm := repository.NewSaleRepositoryGorm(db)
-	// saleUseCase
-	// saleController
-	sale := router.Group("/discount-coupon")
+	saleUseCase := usecase.NewSaleUseCase(saleRepositoryGorm)
+	saleController := controller.NewSaleController(*saleUseCase)
+	sale := router.Group("/sale")
 	{
 		sale.POST("/")
 	}
 
 	// seller
 	sellerRepositoryGorm := repository.NewSellerRepositoryGorm(db)
-	// sellerUseCase
-	// sellerController
-	seller := router.Group("/discount-coupon")
+	sellerUseCase := usecase.NewSellerUseCase(sellerRepositoryGorm)
+	sellerController := controller.NewSellerController(*sellerUseCase)
+	seller := router.Group("/seller")
 	{
 		seller.POST("/")
 	}

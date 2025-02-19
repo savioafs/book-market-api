@@ -1,0 +1,11 @@
+package usecase
+
+import "github.com/savioafs/book-market/internal/repository"
+
+type SellerUseCase struct {
+	repository repository.SellerStorer
+}
+
+func NewSellerUseCase(repository repository.SellerStorer) *SellerUseCase {
+	return &SellerUseCase{repository: repository}
+}

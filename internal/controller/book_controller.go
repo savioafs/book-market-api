@@ -8,11 +8,11 @@ import (
 )
 
 type BookController struct {
-	bookUseCase usecase.BookUseCase
+	useCase usecase.BookUseCase
 }
 
-func NewBookController(bookUseCase usecase.BookUseCase) *BookController {
-	return &BookController{bookUseCase: bookUseCase}
+func NewBookController(useCase usecase.BookUseCase) *BookController {
+	return &BookController{useCase: useCase}
 }
 
 func (bc *BookController) CreateBook(c *gin.Context) {
@@ -27,7 +27,7 @@ func (bc *BookController) CreateBook(c *gin.Context) {
 		return
 	}
 
-	output, err := bc.bookUseCase.CreateBook(input)
+	output, err := bc.useCase.CreateBook(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "cannot register book",
@@ -41,7 +41,7 @@ func (bc *BookController) CreateBook(c *gin.Context) {
 
 func (bc *BookController) GetAllBooks(c *gin.Context) {
 
-	books, err := bc.bookUseCase.GetAllBooks()
+	books, err := bc.useCase.GetAllBooks()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "cannot get all books",
