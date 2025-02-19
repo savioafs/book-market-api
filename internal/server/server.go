@@ -23,7 +23,10 @@ func NewServer(port string, db *gorm.DB) *Server {
 }
 
 func (s *Server) Run() {
-	router := routes.ConfigRoutes(s.server, s.DB)
+	routes.SetupRoutes(s.server, s.DB)
 	log.Printf("server is running on port %s", s.port)
-	log.Fatal(router.Run(s.port))
+	if err := s.server.Run(":" + s.port); err != nil {
+		log.Fatalf("failed to start server %v", err)
+	}
+
 }

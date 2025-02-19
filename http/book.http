@@ -1,0 +1,17 @@
+@baseURL = http://localhost:8080/book/
+
+POST {{baseURL}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Book Two",
+  "image_url": "https://www.google.com/img.png",
+  "author": "Savio",
+  "publisher": "Savio Company",
+  "isbn": "4523534",
+  "price": 119.99,
+  "stock": 20,
+  "category": "Category One",
+  "published_year": 2025,
+  "description": "Description to book one"
+}

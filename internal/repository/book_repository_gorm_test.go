@@ -33,7 +33,7 @@ func TestCreateBook(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	book, err := entity.NewBook(
 		bookToTest.Title,
@@ -63,7 +63,7 @@ func TestGetBookByID(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	book, err := entity.NewBook(
 		bookToTest.Title,
@@ -90,7 +90,7 @@ func TestGetBooksByCategory(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	var books []*entity.Book
 
@@ -125,7 +125,7 @@ func TestGetBooksByPublishedYear(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	var books []*entity.Book
 
@@ -160,7 +160,7 @@ func TestGetBooksByAuthor(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	var books []*entity.Book
 
@@ -194,7 +194,7 @@ func TestGetBooksByAuthor(t *testing.T) {
 func TestUpdateBook(t *testing.T) {
 	as := assert.New(t)
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	book := entity.Book{
 		ID:     uuid.New().String(),
@@ -221,7 +221,7 @@ func TestUpdateStockBookSale(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	book, err := entity.NewBook(
 		bookToTest.Title,
@@ -251,7 +251,7 @@ func TestUpdateStockBookRenew(t *testing.T) {
 	as := assert.New(t)
 
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	book, err := entity.NewBook(
 		bookToTest.Title,
@@ -280,7 +280,7 @@ func TestUpdateStockBookRenew(t *testing.T) {
 func TestDeleteBook(t *testing.T) {
 	as := assert.New(t)
 	db := setupTestDB()
-	repo := NewBookRepositoryPG(db)
+	repo := NewBookRepositoryGorm(db)
 
 	bookId := uuid.New().String()
 

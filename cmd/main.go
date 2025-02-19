@@ -18,6 +18,6 @@ func main() {
 
 	go service.MonitorCouponsByExpirationDate(db)
 
-	sv := server.NewServer(":8080", db)
+	sv := server.NewServer("8080", db)
 	sv.Run()
 }

@@ -12,11 +12,11 @@ type BookRepositoryGorm struct {
 	DB *gorm.DB
 }
 
-func NewBookRepositoryPG(db *gorm.DB) *BookRepositoryGorm {
+func NewBookRepositoryGorm(db *gorm.DB) *BookRepositoryGorm {
 	return &BookRepositoryGorm{DB: db}
 }
 
-func (r *BookRepositoryGorm) CreateBook(book entity.Book) error {
+func (r *BookRepositoryGorm) CreateBook(book *entity.Book) error {
 	return r.DB.Create(&book).Error
 }
 
