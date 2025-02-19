@@ -9,8 +9,7 @@ import (
 
 func MonitorCouponsByExpirationDate(db *gorm.DB) {
 	for {
-
-		time.Sleep(1 * time.Second)
+		time.Sleep(time.Hour)
 
 		discountCouponsRepository := repository.NewDiscountCouponRepositoryGorm(db)
 

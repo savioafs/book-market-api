@@ -19,6 +19,7 @@ type Sale struct {
 	DiscountCoupon   DiscountCoupon `json:"discount_coupon" gorm:"foreignKey:DiscountCouponID"`
 	IsReviewed       bool           `json:"isReviewed"`
 	CreatedAt        time.Time      `json:"created_at"`
+	UpdatedAt        time.Time      `json:"updated_at"`
 }
 
 func NewSale(books []Book, seller Seller, buyerName string, discountCoupon DiscountCoupon) (*Sale, error) {
