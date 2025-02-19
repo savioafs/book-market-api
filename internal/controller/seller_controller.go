@@ -13,13 +13,13 @@ func NewSellerController(useCase usecase.SellerUseCase) *SellerController {
 	return &SellerController{useCase: useCase}
 }
 
-func (sc *SellerController) CreateSeller(c *gin.Context) {}
+func (ct *SellerController) CreateSeller(c *gin.Context) {}
 
-func (sc *SellerController) GetAllSellers(c *gin.Context) {}
+func (ct *SellerController) GetAllSellers(c *gin.Context) {}
 
-func (sc *SellerController) GetSellerByID(c *gin.Context) {}
+func (ct *SellerController) GetSellerByID(c *gin.Context) {}
 
-func (sc *SellerController) GetSellerByEmail(c *gin.Context) {}
+func (ct *SellerController) GetSellerByEmail(c *gin.Context) {}
 
-func (sc *SellerController) UpdateSeller(c *gin.Context) {}
-func (sc *SellerController) DeleteSeller(c *gin.Context) {}
+func (ct *SellerController) UpdateSeller(c *gin.Context) {}
+func (ct *SellerController) DeleteSeller(c *gin.Context) {}

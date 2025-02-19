@@ -13,22 +13,22 @@ func NewDiscountCouponController(useCase usecase.DiscountCouponUseCase) *Discoun
 	return &DiscountCouponController{useCase: useCase}
 }
 
-func (d *DiscountCouponController) CreateDiscountCoupon(c *gin.Context) {
+func (ct *DiscountCouponController) CreateDiscountCoupon(c *gin.Context) {
 
 }
 
-func (d *DiscountCouponController) GetAllDiscountCoupons(c *gin.Context) {
+func (ct *DiscountCouponController) GetAllDiscountCoupons(c *gin.Context) {
 
 }
 
-func (d *DiscountCouponController) GetDiscountCoupon(c *gin.Context) {
+func (ct *DiscountCouponController) GetDiscountCoupon(c *gin.Context) {
 
 }
 
-func (d *DiscountCouponController) GetActiveDiscountsCoupons(c *gin.Context) {
+func (ct *DiscountCouponController) GetActiveDiscountsCoupons(c *gin.Context) {
 
 }
 
-func (d *DiscountCouponController) DisableDiscountCoupon(c *gin.Context) {
+func (ct *DiscountCouponController) DisableDiscountCoupon(c *gin.Context) {
 
 }

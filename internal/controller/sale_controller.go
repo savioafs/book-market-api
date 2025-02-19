@@ -13,8 +13,8 @@ func NewSaleController(useCase usecase.SaleUseCase) *SaleController {
 	return &SaleController{useCase: useCase}
 }
 
-func (sc *SaleController) CreateSale(c *gin.Context)  {}
-func (sc *SaleController) GetAllSales(c *gin.Context) {}
-func (sc *SaleController) GetSaleByID(c *gin.Context) {}
-func (sc *SaleController) UpdateSale(c *gin.Context)  {}
-func (sc *SaleController) DeleteSale(c *gin.Context)  {}
+func (ct *SaleController) CreateSale(c *gin.Context)  {}
+func (ct *SaleController) GetAllSales(c *gin.Context) {}
+func (ct *SaleController) GetSaleByID(c *gin.Context) {}
+func (ct *SaleController) UpdateSale(c *gin.Context)  {}
+func (ct *SaleController) DeleteSale(c *gin.Context)  {}

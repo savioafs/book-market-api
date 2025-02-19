@@ -15,7 +15,7 @@ func NewBookController(useCase usecase.BookUseCase) *BookController {
 	return &BookController{useCase: useCase}
 }
 
-func (bc *BookController) CreateBook(c *gin.Context) {
+func (ct *BookController) CreateBook(c *gin.Context) {
 	var input dto.BookInputDTO
 
 	err := c.BindJSON(&input)
@@ -27,7 +27,7 @@ func (bc *BookController) CreateBook(c *gin.Context) {
 		return
 	}
 
-	output, err := bc.useCase.CreateBook(input)
+	output, err := ct.useCase.CreateBook(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "cannot register book",
@@ -39,9 +39,9 @@ func (bc *BookController) CreateBook(c *gin.Context) {
 	c.JSON(http.StatusOK, output)
 }
 
-func (bc *BookController) GetAllBooks(c *gin.Context) {
+func (ct *BookController) GetAllBooks(c *gin.Context) {
 
-	books, err := bc.useCase.GetAllBooks()
+	books, err := ct.useCase.GetAllBooks()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "cannot get all books",
