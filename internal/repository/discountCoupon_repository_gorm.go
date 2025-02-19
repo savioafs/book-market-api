@@ -17,6 +17,17 @@ func (r *DiscountCouponRepositoryGorm) CreateDiscountCoupon(coupon *entity.Disco
 	return r.DB.Create(coupon).Error
 }
 
+func (r *DiscountCouponRepositoryGorm) GetAllDiscountCoupons() ([]*entity.DiscountCoupon, error) {
+	var discountCoupons []*entity.DiscountCoupon
+
+	err := r.DB.Find(&discountCoupons).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return discountCoupons, nil
+}
+
 func (r *DiscountCouponRepositoryGorm) CountUse(id string) error {
 	var discountCoupon *entity.DiscountCoupon
 

@@ -19,6 +19,17 @@ func (r *SaleRepositoryGorm) CreateSale(sale *entity.Sale) error {
 	return r.DB.Create(sale).Error
 }
 
+func (r *SaleRepositoryGorm) GetAllSales() ([]*entity.Sale, error) {
+	var sales []*entity.Sale
+
+	err := r.DB.Find(&sales).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return sales, nil
+}
+
 func (r *SaleRepositoryGorm) GetSaleByID(id string) (*entity.Sale, error) {
 	var sale *entity.Sale
 

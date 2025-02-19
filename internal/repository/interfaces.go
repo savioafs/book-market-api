@@ -4,6 +4,7 @@ import "github.com/savioafs/book-market/internal/entity"
 
 type BookStorer interface {
 	CreateBook(book *entity.Book) error
+	GetAllBooks() ([]entity.Book, error)
 	GetBookByID(id string) (*entity.Book, error)
 	GetBooksByCategory(category string) ([]*entity.Book, error)
 	GetBooksByPublishedYear(publishedYear int) ([]*entity.Book, error)
@@ -16,6 +17,7 @@ type BookStorer interface {
 
 type DiscountCouponStorer interface {
 	CreateDiscountCoupon(coupon *entity.DiscountCoupon) error
+	GetAllDiscountCoupons() ([]*entity.DiscountCoupon, error)
 	CountUse(id string) error
 	GetDiscountCoupon(id string) (*entity.DiscountCoupon, error)
 	GetActiveDiscountsCoupons() (*[]entity.DiscountCoupon, error)
@@ -24,6 +26,7 @@ type DiscountCouponStorer interface {
 
 type SellerStorer interface {
 	CreateSeller(seller *entity.Seller) error
+	GetAllSellers() ([]*entity.Seller, error)
 	GetSellerByID(id string) (*entity.Seller, error)
 	GetSellerByEmail(email string) (*entity.Seller, error)
 	UpdateSeller(seller *entity.Seller) error
@@ -32,6 +35,7 @@ type SellerStorer interface {
 
 type SaleStorer interface {
 	CreateSale(sale *entity.Sale) error
+	GetAllSales() ([]*entity.Sale, error)
 	GetSaleByID(id string) (*entity.Sale, error)
 	UpdateSale(sale *entity.Sale) error
 	DeleteSale(id string) error

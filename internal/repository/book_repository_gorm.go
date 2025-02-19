@@ -20,6 +20,17 @@ func (r *BookRepositoryGorm) CreateBook(book *entity.Book) error {
 	return r.DB.Create(&book).Error
 }
 
+func (r *BookRepositoryGorm) GetAllBooks() ([]entity.Book, error) {
+	var books []entity.Book
+
+	err := r.DB.Find(&books).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return books, nil
+}
+
 func (r *BookRepositoryGorm) GetBookByID(id string) (*entity.Book, error) {
 	var book *entity.Book
 

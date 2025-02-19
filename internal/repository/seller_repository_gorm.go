@@ -19,6 +19,17 @@ func (r *SellerRepositoryGorm) CreateSeller(seller *entity.Seller) error {
 	return r.DB.Create(seller).Error
 }
 
+func (r *SellerRepositoryGorm) GetAllSellers() ([]*entity.Seller, error) {
+	var sellers []*entity.Seller
+
+	err := r.DB.Find(&sellers).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return sellers, nil
+}
+
 func (r *SellerRepositoryGorm) GetSellerByID(id string) (*entity.Seller, error) {
 	var seller *entity.Seller
 

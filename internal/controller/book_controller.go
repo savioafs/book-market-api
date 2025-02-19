@@ -39,6 +39,20 @@ func (bc *BookController) CreateBook(c *gin.Context) {
 	c.JSON(http.StatusOK, output)
 }
 
+func (bc *BookController) GetAllBooks(c *gin.Context) {
+
+	books, err := bc.bookUseCase.GetAllBooks()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "cannot get all books",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, books)
+}
+
 /*
 
 func (bc *BookController) CreateBook(c *gin.Context) {

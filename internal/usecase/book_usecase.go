@@ -53,6 +53,35 @@ func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO,
 	return bookOutput, nil
 }
 
+func (u *BookUseCase) GetAllBooks() ([]dto.BookOutputDTO, error) {
+	var booksOutput []dto.BookOutputDTO
+
+	books, err := u.repository.GetAllBooks()
+	if err != nil {
+		return []dto.BookOutputDTO{}, err
+	}
+
+	for _, book := range books {
+		bookOutput := dto.BookOutputDTO{
+			ID:          book.ID,
+			Title:       book.Title,
+			ImageURL:    book.ImageURL,
+			Author:      book.Author,
+			Publisher:   book.Publisher,
+			ISBN:        book.ISBN,
+			Price:       book.Price,
+			Stock:       book.Stock,
+			Category:    book.Category,
+			Description: book.Description,
+			CreatedAt:   book.CreatedAt,
+		}
+
+		booksOutput = append(booksOutput, bookOutput)
+	}
+
+	return booksOutput, nil
+}
+
 func (u *BookUseCase) GetBookByID(id string) (dto.BookOutputDTO, error) {
 	book, err := u.repository.GetBookByID(id)
 	if err != nil {
