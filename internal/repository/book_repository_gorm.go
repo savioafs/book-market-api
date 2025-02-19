@@ -5,6 +5,7 @@ import (
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
+	"time"
 )
 
 type BookRepositoryGorm struct {
@@ -74,6 +75,7 @@ func (r *BookRepositoryGorm) UpdateBook(book *entity.Book) error {
 		"category":       book.Category,
 		"published_year": book.PublishedYear,
 		"description":    book.Description,
+		"updated_at":     time.Now(),
 	}).Error
 
 	return err

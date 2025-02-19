@@ -2,7 +2,7 @@ package repository
 
 import "github.com/savioafs/book-market/internal/entity"
 
-type BookStorer interface {
+type BookInterface interface {
 	CreateBook(book *entity.Book) error
 	GetBookByID(id string) (*entity.Book, error)
 	GetBooksByCategory(category string) ([]*entity.Book, error)
@@ -17,7 +17,7 @@ type BookStorer interface {
 type DiscountCouponStorer interface {
 	CreateDiscountCoupon(coupon *entity.DiscountCoupon) error
 	GetDiscountCoupon(id string) (*entity.DiscountCoupon, error)
-	GetActiveDiscountsCoupon() (*[]entity.DiscountCoupon, error)
+	GetActiveDiscountsCoupons() (*[]entity.DiscountCoupon, error)
 	DisableDiscountCoupon(id string) error
 }
 

@@ -31,6 +31,7 @@ type Book struct {
 	PublishedYear int       `json:"published_year"`
 	Description   string    `json:"description"`
 	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
 }
 
 func NewBook(title, imgURL, author, publisher, isbn, category, description string, price float64, stock, publishedYear int) (Book, error) {

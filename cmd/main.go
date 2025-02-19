@@ -12,7 +12,7 @@ func main() {
 
 	db, err := database.InitGorm(dsn)
 	if err != nil {
-		log.Fatal("failt to init database", err)
+		log.Fatal("fail to init database", err)
 	}
 
 	sv := server.NewServer(":8080", db)
