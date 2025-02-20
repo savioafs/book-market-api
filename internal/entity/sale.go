@@ -7,9 +7,10 @@ import (
 )
 
 var (
-	ErrBookIsRequired   = errors.New("book is required")
-	ErrSellerIsRequired = errors.New("seller is required")
-	ErrBuyerIsRequired  = errors.New("buyer is required")
+	ErrBookIsRequired            = errors.New("book is required")
+	ErrSellerIsRequired          = errors.New("seller is required")
+	ErrBuyerIsRequired           = errors.New("buyer is required")
+	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
 )
 
 type Sale struct {
@@ -18,7 +19,7 @@ type Sale struct {
 	Books            []Book         `json:"books" gorm:"many2many:sale_books"`
 	SellerID         string         `json:"seller_id"`
 	Seller           Seller         `json:"seller" gorm:"foreignKey:SellerID"`
-	BuyerName        string         `json:"buyer_name"`
+	Client           Client         `json:"client"`
 	Quantity         int            `json:"quantity"`
 	TotalPrice       float64        `json:"total_price"`
 	SaleDate         time.Time      `json:"sale_date"`
@@ -29,7 +30,7 @@ type Sale struct {
 	UpdatedAt        time.Time      `json:"updated_at"`
 }
 
-func NewSale(books []Book, seller Seller, buyerName string, discountCoupon DiscountCoupon) (*Sale, error) {
+func NewSale(books []Book, seller Seller, client Client, discountCoupon DiscountCoupon) (*Sale, error) {
 	id, err := utils.NewID()
 	if err != nil {
 		return nil, err
@@ -52,7 +53,7 @@ func NewSale(books []Book, seller Seller, buyerName string, discountCoupon Disco
 		Books:          books,
 		SellerID:       seller.ID,
 		Seller:         seller,
-		BuyerName:      buyerName,
+		Client:         client,
 		Quantity:       len(books),
 		TotalPrice:     totalPrice,
 		SaleDate:       time.Now(),
@@ -79,9 +80,29 @@ func (s *Sale) Validate() error {
 		return ErrSellerIsRequired
 	}
 
-	if s.BuyerName == "" {
+	if s.Client.Name == "" {
 		return ErrBuyerIsRequired
 	}
 
 	return nil
+}
+
+func (s *Sale) ApplyDiscountPercentageAndFinalPrice(discountCoupon *DiscountCoupon) (float64, float64, error) {
+	var discountPercentage float64
+	var finalPrice float64
+
+	if discountCoupon == nil {
+		discountPercentage = 0
+		finalPrice = s.TotalPrice
+		return discountPercentage, finalPrice, nil
+	}
+
+	if !discountCoupon.Active {
+		return discountPercentage, finalPrice, ErrDiscountCouponIsNotActive
+	}
+
+	discountPercentage = discountCoupon.DiscountPercentage
+	finalPrice = s.TotalPrice * (1 - (discountPercentage / 100))
+
+	return discountPercentage, finalPrice, nil
 }

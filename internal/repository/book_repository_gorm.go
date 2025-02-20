@@ -42,6 +42,17 @@ func (r *BookRepositoryGorm) GetBookByID(id string) (*entity.Book, error) {
 	return book, nil
 }
 
+func (r *BookRepositoryGorm) GetBooksByIDs(ids []string) ([]entity.Book, error) {
+	var books []entity.Book
+
+	err := r.DB.Where("id IN (?)", ids).Find(&books).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return books, nil
+}
+
 func (r *BookRepositoryGorm) GetBooksByCategory(category string) ([]*entity.Book, error) {
 	var books []*entity.Book
 

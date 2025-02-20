@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/savioafs/book-market/internal/controller"
 	"github.com/savioafs/book-market/internal/repository"
@@ -78,7 +77,5 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		seller.PUT("/:id", sellerController.UpdateSeller)
 		seller.DELETE("/:id", sellerController.DeleteSeller)
 	}
-
-	fmt.Println(bookUseCase, discountCouponRepositoryGorm, reviewRepositoryGorm, saleRepositoryGorm, sellerRepositoryGorm)
 
 }

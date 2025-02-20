@@ -6,6 +6,7 @@ type BookStorer interface {
 	CreateBook(book *entity.Book) error
 	GetAllBooks() ([]entity.Book, error)
 	GetBookByID(id string) (*entity.Book, error)
+	GetBooksByIDs(ids []string) ([]entity.Book, error)
 	GetBooksByCategory(category string) ([]*entity.Book, error)
 	GetBooksByPublishedYear(publishedYear int) ([]*entity.Book, error)
 	GetBooksByAuthor(author string) ([]*entity.Book, error)
@@ -44,4 +45,10 @@ type SaleStorer interface {
 type ReviewStorer interface {
 	CreateReview(review *entity.Review) error
 	GetReviewByID(id string) (*entity.Review, error)
+}
+
+type ClientStorer interface {
+	CreateClient(client *entity.Client) error
+	GetClientByPhone(phone string) (*entity.Client, error)
+	UpdateClient(client *entity.Client) error
 }

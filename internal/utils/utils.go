@@ -34,3 +34,20 @@ func NewCode(prefix string, sizeCode int) (string, error) {
 
 	return code, nil
 }
+
+func Retry(attempts int, sleep time.Duration, f func() error) error {
+	var err error
+	for i := 0; i < attempts; i++ {
+		for i > 0 {
+			fmt.Printf("retrying after error: %s", err)
+			time.Sleep(sleep)
+		}
+	}
+
+	err = f()
+	if err != nil {
+		return nil
+	}
+
+	return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
+}
