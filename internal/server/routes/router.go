@@ -22,7 +22,7 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		book.GET("/category/:category", bookController.GetBooksByCategory)
 		book.GET("/published-year/:publishedYear", bookController.GetBooksByPublishedYear)
 		book.GET("/author/:author", bookController.GetBooksByAuthor)
-		book.PUT("/", bookController.UpdateBook)
+		book.PUT("/:id", bookController.UpdateBook)
 		book.PATCH("/update-sale/:id", bookController.UpdateStockBookSale)
 		book.PATCH("/update-renew/:id", bookController.UpdateStockBookRenew)
 		book.DELETE("/", bookController.DeleteBook)
@@ -41,19 +41,26 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		discountCoupon.PATCH("/disable/:id", discountCouponController.DisableDiscountCoupon)
 	}
 
-	// review
-	reviewRepositoryGorm := repository.NewReviewRepositoryGorm(db)
-	reviewUseCase := usecase.NewReviewUseCase(reviewRepositoryGorm)
-	reviewController := controller.NewReviewController(*reviewUseCase)
-	review := router.Group("/review")
+	// seller
+	sellerRepositoryGorm := repository.NewSellerRepositoryGorm(db)
+	sellerUseCase := usecase.NewSellerUseCase(sellerRepositoryGorm)
+	sellerController := controller.NewSellerController(*sellerUseCase)
+	seller := router.Group("/seller")
 	{
-		review.POST("/", reviewController.CreateReview)
-		review.GET("/", reviewController.GetReviewByID)
+		seller.POST("/", sellerController.CreateSeller)
+		seller.GET("/", sellerController.GetAllSellers)
+		seller.GET("/:id", sellerController.GetSellerByID)
+		seller.GET("/email/:email", sellerController.GetSellerByEmail)
+		seller.PUT("/:id", sellerController.UpdateSeller)
+		seller.DELETE("/:id", sellerController.DeleteSeller)
 	}
+
+	// client
+	clientRepositoryGorm := repository.NewClientRepositoryGorm(db)
 
 	// sale
 	saleRepositoryGorm := repository.NewSaleRepositoryGorm(db)
-	saleUseCase := usecase.NewSaleUseCase(saleRepositoryGorm)
+	saleUseCase := usecase.NewSaleUseCase(saleRepositoryGorm, bookRepositoryGorm, sellerRepositoryGorm, discountCouponRepositoryGorm, clientRepositoryGorm)
 	saleController := controller.NewSaleController(*saleUseCase)
 	sale := router.Group("/sale")
 	{
@@ -64,18 +71,14 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		sale.DELETE("/:id", saleController.DeleteSale)
 	}
 
-	// seller
-	sellerRepositoryGorm := repository.NewSellerRepositoryGorm(db)
-	sellerUseCase := usecase.NewSellerUseCase(sellerRepositoryGorm)
-	sellerController := controller.NewSellerController(*sellerUseCase)
-	seller := router.Group("/seller")
+	// review
+	reviewRepositoryGorm := repository.NewReviewRepositoryGorm(db)
+	reviewUseCase := usecase.NewReviewUseCase(reviewRepositoryGorm)
+	reviewController := controller.NewReviewController(*reviewUseCase)
+	review := router.Group("/review")
 	{
-		seller.POST("/", sellerController.CreateSeller)
-		seller.GET("/", sellerController.GetAllSellers)
-		seller.GET("/:id", sellerController.GetSellerByID)
-		seller.GET("/:email", sellerController.GetSellerByEmail)
-		seller.PUT("/:id", sellerController.UpdateSeller)
-		seller.DELETE("/:id", sellerController.DeleteSeller)
+		review.POST("/", reviewController.CreateReview)
+		review.GET("/", reviewController.GetReviewByID)
 	}
 
 }

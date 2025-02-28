@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
 	"github.com/savioafs/book-market/internal/repository"
@@ -36,19 +37,7 @@ func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO,
 		return dto.BookOutputDTO{}, err
 	}
 
-	bookOutput := dto.BookOutputDTO{
-		ID:          book.ID,
-		Title:       book.Title,
-		ImageURL:    book.ImageURL,
-		Author:      book.Author,
-		Publisher:   book.Publisher,
-		ISBN:        book.ISBN,
-		Price:       book.Price,
-		Stock:       book.Stock,
-		Category:    book.Category,
-		Description: book.Description,
-		CreatedAt:   book.CreatedAt,
-	}
+	bookOutput := converter.BookToOutputDTO(&book)
 
 	return bookOutput, nil
 }
@@ -62,20 +51,7 @@ func (u *BookUseCase) GetAllBooks() ([]dto.BookOutputDTO, error) {
 	}
 
 	for _, book := range books {
-		bookOutput := dto.BookOutputDTO{
-			ID:          book.ID,
-			Title:       book.Title,
-			ImageURL:    book.ImageURL,
-			Author:      book.Author,
-			Publisher:   book.Publisher,
-			ISBN:        book.ISBN,
-			Price:       book.Price,
-			Stock:       book.Stock,
-			Category:    book.Category,
-			Description: book.Description,
-			CreatedAt:   book.CreatedAt,
-		}
-
+		bookOutput := converter.BookToOutputDTO(&book)
 		booksOutput = append(booksOutput, bookOutput)
 	}
 
@@ -88,19 +64,7 @@ func (u *BookUseCase) GetBookByID(id string) (dto.BookOutputDTO, error) {
 		return dto.BookOutputDTO{}, err
 	}
 
-	bookOutput := dto.BookOutputDTO{
-		ID:          book.ID,
-		Title:       book.Title,
-		ImageURL:    book.ImageURL,
-		Author:      book.Author,
-		Publisher:   book.Publisher,
-		ISBN:        book.ISBN,
-		Price:       book.Price,
-		Stock:       book.Stock,
-		Category:    book.Category,
-		Description: book.Description,
-		CreatedAt:   book.CreatedAt,
-	}
+	bookOutput := converter.BookToOutputDTO(book)
 
 	return bookOutput, nil
 }
@@ -114,20 +78,7 @@ func (u *BookUseCase) GetBookByCategory(category string) ([]dto.BookOutputDTO, e
 	}
 
 	for _, book := range books {
-		bookOutput := dto.BookOutputDTO{
-			ID:          book.ID,
-			Title:       book.Title,
-			ImageURL:    book.ImageURL,
-			Author:      book.Author,
-			Publisher:   book.Publisher,
-			ISBN:        book.ISBN,
-			Price:       book.Price,
-			Stock:       book.Stock,
-			Category:    book.Category,
-			Description: book.Description,
-			CreatedAt:   book.CreatedAt,
-		}
-
+		bookOutput := converter.BookToOutputDTO(book)
 		booksOutput = append(booksOutput, bookOutput)
 	}
 
@@ -143,20 +94,7 @@ func (u *BookUseCase) GetBooksByPublishedYear(publishedYear int) ([]dto.BookOutp
 	}
 
 	for _, book := range books {
-		bookOutput := dto.BookOutputDTO{
-			ID:          book.ID,
-			Title:       book.Title,
-			ImageURL:    book.ImageURL,
-			Author:      book.Author,
-			Publisher:   book.Publisher,
-			ISBN:        book.ISBN,
-			Price:       book.Price,
-			Stock:       book.Stock,
-			Category:    book.Category,
-			Description: book.Description,
-			CreatedAt:   book.CreatedAt,
-		}
-
+		bookOutput := converter.BookToOutputDTO(book)
 		booksOutput = append(booksOutput, bookOutput)
 	}
 
@@ -172,20 +110,7 @@ func (u *BookUseCase) GetBooksByAuthor(author string) ([]dto.BookOutputDTO, erro
 	}
 
 	for _, book := range books {
-		bookOutput := dto.BookOutputDTO{
-			ID:          book.ID,
-			Title:       book.Title,
-			ImageURL:    book.ImageURL,
-			Author:      book.Author,
-			Publisher:   book.Publisher,
-			ISBN:        book.ISBN,
-			Price:       book.Price,
-			Stock:       book.Stock,
-			Category:    book.Category,
-			Description: book.Description,
-			CreatedAt:   book.CreatedAt,
-		}
-
+		bookOutput := converter.BookToOutputDTO(book)
 		booksOutput = append(booksOutput, bookOutput)
 	}
 

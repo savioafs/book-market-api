@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"errors"
-	"github.com/savioafs/book-market/internal/converters"
+	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
 	"github.com/savioafs/book-market/internal/repository"
@@ -10,8 +10,7 @@ import (
 )
 
 var (
-	ErrSellerNotFound        = errors.New("seller not found")
-	ErrInvalidDiscountCoupon = errors.New("invalid discount coupon")
+	ErrSellerNotFound = errors.New("seller not found")
 )
 
 type SaleUseCase struct {
@@ -28,6 +27,7 @@ func NewSaleUseCase(saleRepository repository.SaleStorer, bookRepository reposit
 		bookRepository:           bookRepository,
 		sellerRepository:         sellerRepository,
 		discountCouponRepository: discountCouponRepository,
+		clientRepository:         clientRepository,
 	}
 }
 
@@ -84,12 +84,12 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 
 	booksOutput := make([]dto.BookForSaleDTO, len(books))
 	for i, book := range books {
-		booksOutput[i] = converters.ConvertBookOutput(&book)
+		booksOutput[i] = converter.BookToOutputSaleDTO(&book)
 	}
 
-	sellerOutput := converters.ConvertSellerOutput(seller)
-	clientOutput := converters.ConvertClientOutput(client)
-	saleOutput := converters.ConvertSaleOutput(sale, discountCoupon, booksOutput, sellerOutput, clientOutput, discountPercentage, finalPrice)
+	sellerOutput := converter.SellerToOutputSaleDTO(seller)
+	clientOutput := converter.ConvertClientOutput(client)
+	saleOutput := converter.SaleToOutputDTO(sale, discountCoupon, booksOutput, sellerOutput, clientOutput, discountPercentage, finalPrice)
 
 	return saleOutput, nil
 }

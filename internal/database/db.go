@@ -7,7 +7,7 @@ import (
 )
 
 func InitGorm(dsn string) (*gorm.DB, error) {
-	db, err := gorm.Open(sqlite.Open("file::memory"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

@@ -1,15 +1,9 @@
 package entity
 
 import (
-	"errors"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/utils"
 	"time"
-)
-
-var (
-	ErrNameIsRequired  = errors.New("name is required")
-	ErrEmailIsRequired = errors.New("email is required")
-	ErrPhoneIsRequired = errors.New("phone is required")
 )
 
 type Seller struct {
@@ -54,16 +48,16 @@ func NewSeller(name, email, phone string) (*Seller, error) {
 
 func (s *Seller) Validate() error {
 	if s.Name == "" {
-		return ErrNameIsRequired
+		return common.ErrNameIsRequired
 	}
 
 	if s.Email == "" {
-		return ErrEmailIsRequired
+		return common.ErrEmailIsRequired
 	}
 
 	if s.Phone == "" {
-		return ErrPhoneIsRequired
+		return common.ErrPhoneIsRequired
 	}
-	
+
 	return nil
 }

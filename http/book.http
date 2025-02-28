@@ -1,6 +1,11 @@
-@baseURL = http://localhost:8080/book/
+@bookRouteURL = http://localhost:8080/book/
+@bookID = hehehe
+@bookCategory = category
+@bookPublishedYear = 2019
+@bookAuthor = Savio
 
-POST {{baseURL}} HTTP/1.1
+### Create Book
+POST {{bookRouteURL}} HTTP/1.1
 Content-Type: application/json
 
 {
@@ -16,6 +21,37 @@ Content-Type: application/json
   "description": "Description to book one"
 }
 
-###
+### Get All books
+GET {{bookRouteURL}}all
 
-GET {{baseURL}}all
+### Get Book by ID
+GET {{bookRouteURL}}{{bookID}}
+
+### Get Book by category
+GET {{bookRouteURL}}category/{{bookCategory}}
+
+### Get Book by published year
+GET {{bookRouteURL}}published-year/{{bookPublishedYear}}
+
+### Get Book by author
+GET {{bookRouteURL}}author/{{bookAuthor}}
+
+### Update Book
+PUT {{bookRouteURL}}{{bookID}}
+Content-Type: application/json
+
+{
+  "image_url": "https://www.google.com/img.png",
+  "author": "Savio"
+}
+
+### Update Book
+PATCH {{bookRouteURL}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "image_url": "https://www.google.com/img.png",
+  "author": "Savio"
+}
+
+

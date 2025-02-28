@@ -1,21 +1,9 @@
 package entity
 
 import (
-	"errors"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/utils"
 	"time"
-)
-
-var (
-	ErrTitleIsRequired         = errors.New("title is required")
-	ErrImageIsRequired         = errors.New("image is required")
-	ErrAuthorIsRequired        = errors.New("author is required")
-	ErrPublisherIsRequired     = errors.New("publisher is required")
-	ErrIsbnIsRequired          = errors.New("isbn is required")
-	ErrCategoryIsRequired      = errors.New("category is required")
-	ErrDescriptionIsRequired   = errors.New("description is required")
-	ErrPriceIsRequired         = errors.New("price is required")
-	ErrPublishedYearIsRequired = errors.New("published year is required")
 )
 
 type Book struct {
@@ -64,39 +52,39 @@ func NewBook(title, imgURL, author, publisher, isbn, category, description strin
 
 func (b *Book) Validate() error {
 	if b.Title == "" {
-		return ErrTitleIsRequired
+		return common.ErrTitleIsRequired
 	}
 
 	if b.ImageURL == "" {
-		return ErrImageIsRequired
+		return common.ErrImageIsRequired
 	}
 
 	if b.Author == "" {
-		return ErrAuthorIsRequired
+		return common.ErrAuthorIsRequired
 	}
 
 	if b.Publisher == "" {
-		return ErrPublisherIsRequired
+		return common.ErrPublisherIsRequired
 	}
 
 	if b.ISBN == "" {
-		return ErrIsbnIsRequired
+		return common.ErrIsbnIsRequired
 	}
 
 	if b.Category == "" {
-		return ErrCategoryIsRequired
+		return common.ErrCategoryIsRequired
 	}
 
 	if b.Price == 0.0 {
-		return ErrPriceIsRequired
+		return common.ErrPriceIsRequired
 	}
 
 	if b.Description == "" {
-		return ErrDescriptionIsRequired
+		return common.ErrDescriptionIsRequired
 	}
 
 	if b.PublishedYear == 0 {
-		return ErrPublishedYearIsRequired
+		return common.ErrPublishedYearIsRequired
 	}
 
 	return nil

@@ -1,16 +1,9 @@
 package entity
 
 import (
-	"errors"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/utils"
 	"time"
-)
-
-var (
-	ErrBookIsRequired            = errors.New("book is required")
-	ErrSellerIsRequired          = errors.New("seller is required")
-	ErrBuyerIsRequired           = errors.New("buyer is required")
-	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
 )
 
 type Sale struct {
@@ -19,7 +12,8 @@ type Sale struct {
 	Books            []Book         `json:"books" gorm:"many2many:sale_books"`
 	SellerID         string         `json:"seller_id"`
 	Seller           Seller         `json:"seller" gorm:"foreignKey:SellerID"`
-	Client           Client         `json:"client"`
+	ClientPhone      string         `json:"client_phone"`
+	Client           Client         `json:"client" gorm:"foreignKey:ClientPhone;references:Phone"`
 	Quantity         int            `json:"quantity"`
 	TotalPrice       float64        `json:"total_price"`
 	SaleDate         time.Time      `json:"sale_date"`
@@ -73,15 +67,15 @@ func NewSale(books []Book, seller Seller, client Client, discountCoupon Discount
 func (s *Sale) Validate() error {
 
 	if s.Books == nil {
-		return ErrBookIsRequired
+		return common.ErrBookIsRequired
 	}
 
 	if s.Seller.ID == "" {
-		return ErrSellerIsRequired
+		return common.ErrSellerIsRequired
 	}
 
 	if s.Client.Name == "" {
-		return ErrBuyerIsRequired
+		return common.ErrBuyerIsRequired
 	}
 
 	return nil
@@ -98,7 +92,7 @@ func (s *Sale) ApplyDiscountPercentageAndFinalPrice(discountCoupon *DiscountCoup
 	}
 
 	if !discountCoupon.Active {
-		return discountPercentage, finalPrice, ErrDiscountCouponIsNotActive
+		return discountPercentage, finalPrice, common.ErrDiscountCouponIsNotActive
 	}
 
 	discountPercentage = discountCoupon.DiscountPercentage

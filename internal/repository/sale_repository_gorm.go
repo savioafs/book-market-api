@@ -44,7 +44,7 @@ func (r *SaleRepositoryGorm) GetSaleByID(id string) (*entity.Sale, error) {
 func (r *SaleRepositoryGorm) UpdateSale(sale *entity.Sale) error {
 	err := r.DB.Model(&entity.Seller{}).Where("id = ?", sale.ID).Updates(map[string]interface{}{
 		"books":       sale.Books,
-		"buyer_name":  sale.BuyerName,
+		"client":      sale.Client,
 		"quantity":    sale.Quantity,
 		"total_price": sale.TotalPrice,
 		"updated_at":  time.Now(),
