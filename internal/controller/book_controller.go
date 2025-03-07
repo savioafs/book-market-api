@@ -53,9 +53,47 @@ func (ct *BookController) GetAllBooks(c *gin.Context) {
 	c.JSON(http.StatusOK, books)
 }
 
-func (ct *BookController) GetBookByID(c *gin.Context) {}
+func (ct *BookController) GetBookByID(c *gin.Context) {
+	id := c.Param("id")
 
-func (ct *BookController) GetBooksByCategory(c *gin.Context) {}
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "id cannot empty",
+		})
+
+		return
+	}
+
+	book, err := ct.useCase.GetBookByID(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot get book by id",
+		})
+	}
+
+	c.JSON(http.StatusOK, book)
+}
+
+func (ct *BookController) GetBooksByCategory(c *gin.Context) {
+	category := c.Param("category")
+
+	if category == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "category cannot empty",
+		})
+
+		return
+	}
+
+	books, err := ct.useCase.GetBookByCategory(category)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot get books by category",
+		})
+	}
+
+	c.JSON(http.StatusOK, books)
+}
 
 func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {}
 
