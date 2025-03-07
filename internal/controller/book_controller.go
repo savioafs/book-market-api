@@ -5,6 +5,7 @@ import (
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/usecase"
 	"net/http"
+	"strconv"
 )
 
 type BookController struct {
@@ -95,9 +96,54 @@ func (ct *BookController) GetBooksByCategory(c *gin.Context) {
 	c.JSON(http.StatusOK, books)
 }
 
-func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {}
+func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {
+	publishedYear := c.Param("published_year")
 
-func (ct *BookController) GetBooksByAuthor(c *gin.Context) {}
+	if publishedYear == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "category cannot empty",
+		})
+
+		return
+	}
+
+	publishedYearConv, err := strconv.Atoi(publishedYear)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot convert published year",
+		})
+	}
+
+	books, err := ct.useCase.GetBooksByPublishedYear(publishedYearConv)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot get books by category",
+		})
+	}
+
+	c.JSON(http.StatusOK, books)
+}
+
+func (ct *BookController) GetBooksByAuthor(c *gin.Context) {
+	author := c.Param("author")
+
+	if author == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "category cannot empty",
+		})
+
+		return
+	}
+
+	books, err := ct.useCase.GetBooksByAuthor(author)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot get books by category",
+		})
+	}
+
+	c.JSON(http.StatusOK, books)
+}
 
 func (ct *BookController) UpdateBook(c *gin.Context) {}
 
