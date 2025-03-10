@@ -140,16 +140,36 @@ func (u *BookUseCase) UpdateBook(bookID string, bookInput dto.BookInputDTO) erro
 		return err
 	}
 
-	book.Title = bookInput.Title
-	book.ImageURL = bookInput.ImageURL
-	book.Author = bookInput.Author
-	book.Publisher = bookInput.Publisher
-	book.ISBN = bookInput.ISBN
-	book.Category = bookInput.Category
-	book.Description = bookInput.Description
-	book.Price = bookInput.Price
-	book.Stock = bookInput.Stock
-	book.PublishedYear = bookInput.PublishedYear
+	if bookInput.Title != "" {
+		book.Title = bookInput.Title
+	}
+	if bookInput.ImageURL != "" {
+		book.ImageURL = bookInput.ImageURL
+	}
+	if bookInput.Author != "" {
+		book.Author = bookInput.Author
+	}
+	if bookInput.Publisher != "" {
+		book.Publisher = bookInput.Publisher
+	}
+	if bookInput.ISBN != "" {
+		book.ISBN = bookInput.ISBN
+	}
+	if bookInput.Category != "" {
+		book.Category = bookInput.Category
+	}
+	if bookInput.Description != "" {
+		book.Description = bookInput.Description
+	}
+	if bookInput.Price != 0 {
+		book.Price = bookInput.Price
+	}
+	if bookInput.Stock != 0 {
+		book.Stock = bookInput.Stock
+	}
+	if bookInput.PublishedYear != 0 {
+		book.PublishedYear = bookInput.PublishedYear
+	}
 
 	err = u.repository.UpdateBook(book)
 	if err != nil {

@@ -216,7 +216,7 @@ func (ct *BookController) UpdateBook(c *gin.Context) {
 
 func (ct *BookController) UpdateStockBookRenew(c *gin.Context) {
 	id := c.Param("id")
-	quantity := c.Param("quantity")
+	quantity := c.Query("quantity")
 
 	quantityConvert, err := strconv.Atoi(quantity)
 	if err != nil {
