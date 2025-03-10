@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/savioafs/book-market/internal/actions"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/usecase"
 	"net/http"
@@ -69,6 +70,7 @@ func (ct *BookController) GetBookByID(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get book by id",
+			"error":   err.Error(),
 		})
 	}
 
@@ -90,6 +92,7 @@ func (ct *BookController) GetBooksByCategory(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get books by category",
+			"error":   err.Error(),
 		})
 	}
 
@@ -111,14 +114,18 @@ func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot convert published year",
+			"error":   err.Error(),
 		})
+		return
 	}
 
 	books, err := ct.useCase.GetBooksByPublishedYear(publishedYearConv)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get books by category",
+			"error":   err.Error(),
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, books)
@@ -139,33 +146,82 @@ func (ct *BookController) GetBooksByAuthor(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get books by category",
+			"error":   err.Error(),
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, books)
 }
 
-func (ct *BookController) UpdateBook(c *gin.Context) {}
+func (ct *BookController) UpdateBook(c *gin.Context) {
+	var book dto.BookInputDTO
 
-func (ct *BookController) UpdateStockBookSale(c *gin.Context) {}
-
-func (ct *BookController) UpdateStockBookRenew(c *gin.Context) {}
-
-func (ct *BookController) DeleteBook(c *gin.Context) {}
-
-/*
-
-func (bc *BookController) CreateBook(c *gin.Context) {
 	id := c.Param("id")
 
-	if id == "" {
+	err := c.BindJSON(&book)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "id is required",
+			"message": "invalid book input",
+			"error":   err.Error(),
 		})
 		return
 	}
 
-	book, err := bc.bookUseCase.CreateBook()
+	err = ct.useCase.UpdateBook(id, book)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot update book",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "book updated with success",
+	})
 }
 
-*/
+func (ct *BookController) UpdateStockBookRenew(c *gin.Context) {
+	id := c.Param("id")
+	quantity := c.Param("quantity")
+
+	quantityConvert, err := strconv.Atoi(quantity)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "error to convert quantity to int",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	err = ct.useCase.UpdateStockBook(id, quantityConvert, actions.BookRenew)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "cannot update stock renew",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "update stock renew with success",
+	})
+}
+
+func (ct *BookController) DeleteBook(c *gin.Context) {
+	id := c.Param("id")
+
+	err := ct.useCase.DeleteBook(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "does not delete book",
+			"error":   err.Error(),
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "delete with success",
+	})
+
+}

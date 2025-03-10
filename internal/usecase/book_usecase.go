@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/savioafs/book-market/internal/actions"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -117,34 +119,25 @@ func (u *BookUseCase) GetBooksByAuthor(author string) ([]dto.BookOutputDTO, erro
 	return booksOutput, nil
 }
 
-func (u *BookUseCase) UpdateBook(bookInput dto.BookInputDTO) error {
-	book, err := entity.NewBook(
-		bookInput.Title,
-		bookInput.ImageURL,
-		bookInput.Author,
-		bookInput.Publisher,
-		bookInput.ISBN,
-		bookInput.Category,
-		bookInput.Description,
-		bookInput.Price,
-		bookInput.Stock,
-		bookInput.PublishedYear,
-	)
+func (u *BookUseCase) UpdateBook(bookID string, bookInput dto.BookInputDTO) error {
+
+	book, err := u.repository.GetBookByID(bookID)
 	if err != nil {
 		return err
 	}
 
-	err = u.repository.UpdateBook(&book)
-	if err != nil {
-		return err
-	}
+	book.Title = bookInput.Title
+	book.ImageURL = bookInput.ImageURL
+	book.Author = bookInput.Author
+	book.Publisher = bookInput.Publisher
+	book.ISBN = bookInput.ISBN
+	book.Category = bookInput.Category
+	book.Description = bookInput.Description
+	book.Price = bookInput.Price
+	book.Stock = bookInput.Stock
+	book.PublishedYear = bookInput.PublishedYear
 
-	return nil
-}
-
-func (u *BookUseCase) UpdateStockBookSale(bookID string, quantity int) error {
-
-	err := u.repository.UpdateStockBookSale(bookID, quantity)
+	err = u.repository.UpdateBook(book)
 	if err != nil {
 		return err
 	}
@@ -152,11 +145,25 @@ func (u *BookUseCase) UpdateStockBookSale(bookID string, quantity int) error {
 	return nil
 }
 
-func (u *BookUseCase) UpdateStockBookRenew(bookID string, quantity int) error {
+func (u *BookUseCase) UpdateStockBook(bookID string, quantity int, action actions.UpdateBookStockAction) error {
+	var err error
 
-	err := u.repository.UpdateStockBookRenew(bookID, quantity)
-	if err != nil {
-		return err
+	if !action.IsValid() {
+		return fmt.Errorf("invalid action for - %s", action)
+	}
+
+	switch action {
+	case actions.BookRenew:
+		err = u.repository.UpdateStockBookRenew(bookID, quantity)
+		if err != nil {
+			return err
+		}
+	case actions.BookSale:
+		err = u.repository.UpdateStockBookSale(bookID, quantity)
+		if err != nil {
+			return err
+		}
+
 	}
 
 	return nil
