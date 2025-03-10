@@ -14,5 +14,5 @@ func NewSellerUseCase(repository repository.SellerStorer) *SellerUseCase {
 }
 
 func (u *SellerUseCase) CreateSeller(sellerInput dto.SellerInputDTO) (dto.SellerOutputDTO, error) {
-
+	return dto.SellerOutputDTO{}, nil
 }

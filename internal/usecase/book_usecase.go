@@ -3,6 +3,7 @@ package usecase
 import (
 	"fmt"
 	"github.com/savioafs/book-market/internal/actions"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -79,6 +80,10 @@ func (u *BookUseCase) GetBookByCategory(category string) ([]dto.BookOutputDTO, e
 		return []dto.BookOutputDTO{}, err
 	}
 
+	if len(books) == 0 {
+		return []dto.BookOutputDTO{}, common.ErrCategoryNotFound
+	}
+
 	for _, book := range books {
 		bookOutput := converter.BookToOutputDTO(book)
 		booksOutput = append(booksOutput, bookOutput)
@@ -109,6 +114,10 @@ func (u *BookUseCase) GetBooksByAuthor(author string) ([]dto.BookOutputDTO, erro
 	books, err := u.repository.GetBooksByAuthor(author)
 	if err != nil {
 		return []dto.BookOutputDTO{}, err
+	}
+
+	if len(books) == 0 {
+		return []dto.BookOutputDTO{}, common.ErrAuthorNotFound
 	}
 
 	for _, book := range books {

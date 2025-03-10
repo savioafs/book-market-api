@@ -20,7 +20,7 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		book.GET("/all", bookController.GetAllBooks)
 		book.GET("/:id", bookController.GetBookByID)
 		book.GET("/category/:category", bookController.GetBooksByCategory)
-		book.GET("/published-year/:publishedYear", bookController.GetBooksByPublishedYear)
+		book.GET("/published-year/:published_year", bookController.GetBooksByPublishedYear)
 		book.GET("/author/:author", bookController.GetBooksByAuthor)
 		book.PUT("/:id", bookController.UpdateBook)
 		book.PATCH("/update-renew/:id", bookController.UpdateStockBookRenew)

@@ -18,6 +18,9 @@ var (
 	ErrPriceIsRequired         = errors.New("price is required")
 	ErrPublishedYearIsRequired = errors.New("published year is required")
 
+	ErrAuthorNotFound   = errors.New("author not found")
+	ErrCategoryNotFound = errors.New("category not found")
+
 	ErrCodeIsRequired               = errors.New("code is required")
 	ErrDiscountPercentageIsRequired = errors.New("discount percentage is required")
 	ErrExpirationDateIsRequired     = errors.New("expiration date is required")

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/savioafs/book-market/internal/config"
 	"github.com/savioafs/book-market/internal/database"
 	"github.com/savioafs/book-market/internal/server"
@@ -17,7 +18,8 @@ func main() {
 	}
 
 	go service.MonitorCouponsByExpirationDate(db)
-
+	fmt.Println("server ir running 🚀")
 	sv := server.NewServer("8080", db)
+
 	sv.Run()
 }
