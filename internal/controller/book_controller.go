@@ -2,7 +2,6 @@ package controller
 
 import (
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/savioafs/book-market/internal/actions"
 	"github.com/savioafs/book-market/internal/common"
@@ -70,6 +69,13 @@ func (ct *BookController) GetBookByID(c *gin.Context) {
 	}
 
 	book, err := ct.useCase.GetBookByID(id)
+	if errors.Is(err, common.ErrBookNotFound) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "book not found",
+			"error":   err.Error(),
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get book by id",
@@ -113,8 +119,6 @@ func (ct *BookController) GetBooksByCategory(c *gin.Context) {
 func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {
 	publishedYear := c.Param("published_year")
 
-	fmt.Println(publishedYear)
-
 	if publishedYear == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "published year cannot empty",
@@ -133,6 +137,13 @@ func (ct *BookController) GetBooksByPublishedYear(c *gin.Context) {
 	}
 
 	books, err := ct.useCase.GetBooksByPublishedYear(publishedYearConv)
+	if errors.Is(err, common.ErrPublishedYearNotFound) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "cannot get books by category",
+			"error":   err.Error(),
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot get books by category",

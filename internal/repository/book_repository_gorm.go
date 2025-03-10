@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -35,6 +36,9 @@ func (r *BookRepositoryGorm) GetBookByID(id string) (*entity.Book, error) {
 	var book *entity.Book
 
 	err := r.DB.First(&book, "id = ?", id).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, common.ErrBookNotFound
+	}
 	if err != nil {
 		return nil, err
 	}

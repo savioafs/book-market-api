@@ -63,6 +63,7 @@ func (u *BookUseCase) GetAllBooks() ([]dto.BookOutputDTO, error) {
 
 func (u *BookUseCase) GetBookByID(id string) (dto.BookOutputDTO, error) {
 	book, err := u.repository.GetBookByID(id)
+
 	if err != nil {
 		return dto.BookOutputDTO{}, err
 	}
@@ -98,6 +99,10 @@ func (u *BookUseCase) GetBooksByPublishedYear(publishedYear int) ([]dto.BookOutp
 	books, err := u.repository.GetBooksByPublishedYear(publishedYear)
 	if err != nil {
 		return []dto.BookOutputDTO{}, err
+	}
+
+	if len(books) == 0 {
+		return []dto.BookOutputDTO{}, common.ErrPublishedYearNotFound
 	}
 
 	for _, book := range books {
