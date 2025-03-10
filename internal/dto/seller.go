@@ -15,5 +15,5 @@ type SellerOutputDTO struct {
 	Email     string    `json:"email"`
 	Phone     string    `json:"phone"`
 	Rating    float64   `json:"rating"`
-	CreatedAt time.Time `json:"create_at"`
+	CreatedAt time.Time `json:"created_at"`
 }

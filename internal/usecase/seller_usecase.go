@@ -1,7 +1,9 @@
 package usecase
 
 import (
+	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
+	"github.com/savioafs/book-market/internal/entity"
 	"github.com/savioafs/book-market/internal/repository"
 )
 
@@ -14,5 +16,22 @@ func NewSellerUseCase(repository repository.SellerStorer) *SellerUseCase {
 }
 
 func (u *SellerUseCase) CreateSeller(sellerInput dto.SellerInputDTO) (dto.SellerOutputDTO, error) {
-	return dto.SellerOutputDTO{}, nil
+	seller, err := entity.NewSeller(
+		sellerInput.Name,
+		sellerInput.Email,
+		sellerInput.Phone,
+	)
+
+	if err != nil {
+		return dto.SellerOutputDTO{}, err
+	}
+
+	err = u.repository.CreateSeller(seller)
+	if err != nil {
+		return dto.SellerOutputDTO{}, err
+	}
+
+	sellerOutput := converter.SellerToOutputDTO(seller)
+
+	return sellerOutput, nil
 }
