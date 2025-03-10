@@ -15,8 +15,8 @@ func NewClientRepositoryGorm(db *gorm.DB) *ClientRepositoryGorm {
 	}
 }
 
-func (r *ClientRepositoryGorm) CreateClient(buyer *entity.Client) error {
-	return nil
+func (r *ClientRepositoryGorm) CreateClient(client *entity.Client) error {
+	return r.DB.Create(&client).Error
 }
 
 func (r *ClientRepositoryGorm) GetClientByPhone(phone string) (*entity.Client, error) {
