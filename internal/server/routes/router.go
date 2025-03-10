@@ -24,7 +24,7 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		book.GET("/author/:author", bookController.GetBooksByAuthor)
 		book.PUT("/:id", bookController.UpdateBook)
 		book.PATCH("/update-renew/:id", bookController.UpdateStockBookRenew)
-		book.DELETE("/", bookController.DeleteBook)
+		book.DELETE("/:id", bookController.DeleteBook)
 	}
 
 	// discount coupons

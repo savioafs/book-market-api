@@ -250,6 +250,7 @@ func (ct *BookController) DeleteBook(c *gin.Context) {
 			"message": "does not delete book",
 			"error":   err.Error(),
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
