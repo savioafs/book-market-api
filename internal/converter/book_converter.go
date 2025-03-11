@@ -7,17 +7,18 @@ import (
 
 func BookToOutputDTO(b *entity.Book) dto.BookOutputDTO {
 	return dto.BookOutputDTO{
-		ID:          b.ID,
-		Title:       b.Title,
-		ImageURL:    b.ImageURL,
-		Author:      b.Author,
-		Publisher:   b.Publisher,
-		ISBN:        b.ISBN,
-		Price:       b.Price,
-		Stock:       b.Stock,
-		Category:    b.Category,
-		Description: b.Description,
-		CreatedAt:   b.CreatedAt,
+		ID:            b.ID,
+		Title:         b.Title,
+		ImageURL:      b.ImageURL,
+		Author:        b.Author,
+		Publisher:     b.Publisher,
+		ISBN:          b.ISBN,
+		Price:         b.Price,
+		Stock:         b.Stock,
+		Category:      b.Category,
+		PublishedYear: b.PublishedYear,
+		Description:   b.Description,
+		CreatedAt:     b.CreatedAt,
 	}
 }
 
