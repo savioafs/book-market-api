@@ -45,6 +45,40 @@ func (r *SellerRepositoryGorm) GetSellerByEmail(email string) (*entity.Seller, e
 	var seller *entity.Seller
 
 	err := r.DB.First(&seller, "email = ?", email).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return seller, nil
+}
+
+func (r *SellerRepositoryGorm) GetSellerByName(name string) (*entity.Seller, error) {
+	var seller *entity.Seller
+
+	err := r.DB.First(&seller, "name = ?", name).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return seller, nil
+}
+
+func (r *SellerRepositoryGorm) GetSellerByPhone(phone string) (*entity.Seller, error) {
+	var seller *entity.Seller
+
+	err := r.DB.First(&seller, "phone = ?", phone).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+
 	if err != nil {
 		return nil, err
 	}

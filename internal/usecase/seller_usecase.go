@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -24,6 +25,25 @@ func (u *SellerUseCase) CreateSeller(sellerInput dto.SellerInputDTO) (dto.Seller
 
 	if err != nil {
 		return dto.SellerOutputDTO{}, err
+	}
+
+	findSeller, err := u.repository.GetSellerByName(seller.Name)
+	if err != nil {
+		return dto.SellerOutputDTO{}, err
+	}
+
+	findSeller, err = u.repository.GetSellerByEmail(seller.Email)
+	if err != nil {
+		return dto.SellerOutputDTO{}, err
+	}
+
+	findSeller, err = u.repository.GetSellerByPhone(seller.Phone)
+	if err != nil {
+		return dto.SellerOutputDTO{}, err
+	}
+
+	if findSeller != nil {
+		return dto.SellerOutputDTO{}, common.ErrSellerAlreadyExists
 	}
 
 	err = u.repository.CreateSeller(seller)

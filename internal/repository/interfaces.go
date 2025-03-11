@@ -30,6 +30,8 @@ type SellerStorer interface {
 	GetAllSellers() ([]*entity.Seller, error)
 	GetSellerByID(id string) (*entity.Seller, error)
 	GetSellerByEmail(email string) (*entity.Seller, error)
+	GetSellerByName(name string) (*entity.Seller, error)
+	GetSellerByPhone(phone string) (*entity.Seller, error)
 	UpdateSeller(seller *entity.Seller) error
 	DeleteSeller(id string) error
 }

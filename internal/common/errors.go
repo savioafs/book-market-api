@@ -5,8 +5,11 @@ import "errors"
 var (
 	ErrBookIsRequired            = errors.New("book is required")
 	ErrSellerIsRequired          = errors.New("seller is required")
+	ErrSellerAlreadyExists       = errors.New("seller already exists")
 	ErrBuyerIsRequired           = errors.New("buyer is required")
 	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
+
+	ErrRecordNotFound = errors.New("record not found")
 
 	ErrTitleIsRequired         = errors.New("title is required")
 	ErrImageIsRequired         = errors.New("image is required")
