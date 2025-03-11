@@ -18,26 +18,25 @@ type DiscountCoupon struct {
 	CreatedAt          time.Time `json:"created_at"`
 }
 
-func NewDiscountCoupon(code string, discountPercentage float64, expirationDate time.Time, usageLimit int, usedCount int) (*DiscountCoupon, error) {
+func NewDiscountCoupon(code string, discountPercentage float64, expirationDate time.Time, usageLimit int) (DiscountCoupon, error) {
 	id, err := utils.NewID()
 	if err != nil {
-		return nil, err
+		return DiscountCoupon{}, err
 	}
 
-	discountCoupon := &DiscountCoupon{
+	discountCoupon := DiscountCoupon{
 		ID:                 id,
 		Code:               strings.ToUpper(code),
 		DiscountPercentage: discountPercentage,
 		ExpirationDate:     expirationDate,
 		UsageLimit:         usageLimit,
-		UsedCount:          usedCount,
 		Active:             true,
 		CreatedAt:          time.Now(),
 	}
 
 	err = discountCoupon.Validate()
 	if err != nil {
-		return nil, err
+		return DiscountCoupon{}, err
 	}
 
 	return discountCoupon, nil
