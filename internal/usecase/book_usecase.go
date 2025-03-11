@@ -25,7 +25,7 @@ func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO,
 	}
 
 	if bookExists {
-		return dto.BookOutputDTO{}, common.BookAlreadyExists
+		return dto.BookOutputDTO{}, common.ErrBookAlreadyExists
 	}
 
 	book, err := entity.NewBook(

@@ -109,3 +109,18 @@ func (r *SellerRepositoryGorm) DeleteSeller(id string) error {
 
 	return nil
 }
+
+func (r *SellerRepositoryGorm) ExistsSeller(name, email, phone string) (bool, error) {
+	var count int64
+
+	err := r.DB.Model(&entity.Seller{}).Where("lower(name) LIKE lower(?) OR email = ? OR phone = ?  ", name, email, phone).Count(&count).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, nil
+	}
+
+	if err != nil {
+		return false, nil
+	}
+
+	return count > 0, nil
+}

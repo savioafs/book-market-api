@@ -39,7 +39,7 @@ type SellerStorer interface {
 	UpdateSeller(seller *entity.Seller) error
 	DeleteSeller(id string) error
 
-	//ExistsSeller(name, email, phone string) (bool, error)
+	ExistsSeller(name, email, phone string) (bool, error)
 }
 
 type SaleStorer interface {

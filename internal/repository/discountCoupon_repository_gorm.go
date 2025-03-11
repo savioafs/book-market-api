@@ -78,9 +78,9 @@ func (r *DiscountCouponRepositoryGorm) DisableDiscountCoupon(id string) error {
 }
 
 func (r *DiscountCouponRepositoryGorm) ExistsDiscountCoupon(code string) (bool, error) {
-	var discountCoupon *entity.DiscountCoupon
+	var count int64
 
-	err := r.DB.Take(&discountCoupon, "lower(code) = lower(?)", code).Error
+	err := r.DB.Model(&entity.DiscountCoupon{}).Where("lower(code) = lower(?)", code).Count(&count).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return false, nil
 	}
@@ -88,5 +88,5 @@ func (r *DiscountCouponRepositoryGorm) ExistsDiscountCoupon(code string) (bool, 
 		return false, err
 	}
 
-	return true, nil
+	return count > 0, nil
 }

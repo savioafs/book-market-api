@@ -5,12 +5,12 @@ import "errors"
 var (
 	ErrBookIsRequired            = errors.New("book is required")
 	ErrSellerIsRequired          = errors.New("seller is required")
-	ErrSellerAlreadyExists       = errors.New("seller already exists")
 	ErrBuyerIsRequired           = errors.New("buyer is required")
 	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
 
-	DiscountCouponAlreadyExists = errors.New("discount coupon already exists")
-	BookAlreadyExists           = errors.New("book already exists")
+	ErrDiscountCouponAlreadyExists = errors.New("discount coupon already exists")
+	ErrBookAlreadyExists           = errors.New("book already exists")
+	ErrSellerAlreadyExists         = errors.New("seller already exists")
 
 	ErrTitleIsRequired         = errors.New("title is required")
 	ErrImageIsRequired         = errors.New("image is required")

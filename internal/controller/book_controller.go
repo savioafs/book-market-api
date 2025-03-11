@@ -32,7 +32,7 @@ func (ct *BookController) CreateBook(c *gin.Context) {
 	}
 
 	output, err := ct.useCase.CreateBook(input)
-	if errors.Is(err, common.BookAlreadyExists) {
+	if errors.Is(err, common.ErrBookAlreadyExists) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})

@@ -24,7 +24,7 @@ func (u *DiscountCouponUseCase) CreateDiscountCoupon(couponInput dto.DiscountCou
 	}
 
 	if couponExists {
-		return dto.DiscountCouponOutputDTO{}, common.DiscountCouponAlreadyExists
+		return dto.DiscountCouponOutputDTO{}, common.ErrDiscountCouponAlreadyExists
 	}
 
 	discountCoupon, err := entity.NewDiscountCoupon(

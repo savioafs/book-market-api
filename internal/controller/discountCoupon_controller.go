@@ -31,7 +31,7 @@ func (ct *DiscountCouponController) CreateDiscountCoupon(c *gin.Context) {
 	}
 
 	output, err := ct.useCase.CreateDiscountCoupon(input)
-	if errors.Is(err, common.DiscountCouponAlreadyExists) {
+	if errors.Is(err, common.ErrDiscountCouponAlreadyExists) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
