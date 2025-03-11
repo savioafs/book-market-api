@@ -27,23 +27,9 @@ func (u *SellerUseCase) CreateSeller(sellerInput dto.SellerInputDTO) (dto.Seller
 		return dto.SellerOutputDTO{}, err
 	}
 
-	findSeller, err := u.repository.GetSellerByName(seller.Name)
+	err = u.verifySellerAlreadyExists(seller)
 	if err != nil {
 		return dto.SellerOutputDTO{}, err
-	}
-
-	findSeller, err = u.repository.GetSellerByEmail(seller.Email)
-	if err != nil {
-		return dto.SellerOutputDTO{}, err
-	}
-
-	findSeller, err = u.repository.GetSellerByPhone(seller.Phone)
-	if err != nil {
-		return dto.SellerOutputDTO{}, err
-	}
-
-	if findSeller != nil {
-		return dto.SellerOutputDTO{}, common.ErrSellerAlreadyExists
 	}
 
 	err = u.repository.CreateSeller(seller)
@@ -54,4 +40,27 @@ func (u *SellerUseCase) CreateSeller(sellerInput dto.SellerInputDTO) (dto.Seller
 	sellerOutput := converter.SellerToOutputDTO(seller)
 
 	return sellerOutput, nil
+}
+
+func (u *SellerUseCase) verifySellerAlreadyExists(seller *entity.Seller) error {
+	findSeller, err := u.repository.GetSellerByName(seller.Name)
+	if err != nil {
+		return err
+	}
+
+	findSeller, err = u.repository.GetSellerByEmail(seller.Email)
+	if err != nil {
+		return err
+	}
+
+	findSeller, err = u.repository.GetSellerByPhone(seller.Phone)
+	if err != nil {
+		return err
+	}
+
+	if findSeller != nil {
+		return common.ErrSellerAlreadyExists
+	}
+
+	return nil
 }
