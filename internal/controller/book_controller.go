@@ -32,6 +32,13 @@ func (ct *BookController) CreateBook(c *gin.Context) {
 	}
 
 	output, err := ct.useCase.CreateBook(input)
+	if errors.Is(err, common.BookAlreadyExists) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "cannot register book",

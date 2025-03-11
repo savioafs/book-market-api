@@ -151,3 +151,17 @@ func (r *BookRepositoryGorm) DeleteBook(bookID string) error {
 
 	return nil
 }
+
+func (r *BookRepositoryGorm) ExistsBook(title, imageUrl, isbn string) (bool, error) {
+	var count int64
+
+	err := r.DB.Model(&entity.Book{}).Where("lower(title) = lower(?) AND image_url = ? AND isbn = ?", title, imageUrl, isbn).Count(&count).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}

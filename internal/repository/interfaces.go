@@ -15,7 +15,7 @@ type BookStorer interface {
 	UpdateStockBookRenew(bookID string, quantity int) error
 	DeleteBook(bookID string) error
 
-	//ExistsBook(title, imageUrl, isbn string) (bool, error)
+	ExistsBook(title, imageUrl, isbn string) (bool, error)
 }
 
 type DiscountCouponStorer interface {

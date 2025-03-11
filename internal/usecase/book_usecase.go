@@ -19,6 +19,15 @@ func NewBookUseCase(repository repository.BookStorer) *BookUseCase {
 }
 
 func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO, error) {
+	bookExists, err := u.repository.ExistsBook(bookInput.Title, bookInput.ImageURL, bookInput.ISBN)
+	if err != nil {
+		return dto.BookOutputDTO{}, err
+	}
+
+	if bookExists {
+		return dto.BookOutputDTO{}, common.BookAlreadyExists
+	}
+
 	book, err := entity.NewBook(
 		bookInput.Title,
 		bookInput.ImageURL,
