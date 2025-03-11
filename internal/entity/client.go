@@ -12,13 +12,13 @@ type Client struct {
 	Phone string `json:"phone" gorm:"uniqueIndex"`
 }
 
-func NewClient(name string, email string, phone string) (*Client, error) {
+func NewClient(name string, email string, phone string) (Client, error) {
 	id, err := utils.NewID()
 	if err != nil {
-		return nil, err
+		return Client{}, err
 	}
 
-	client := &Client{
+	client := Client{
 		ID:    id,
 		Name:  name,
 		Email: email,

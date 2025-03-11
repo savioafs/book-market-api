@@ -63,6 +63,6 @@ type ClientStorer interface {
 	CreateClient(client *entity.Client) error
 	GetClientByPhone(phone string) (*entity.Client, error)
 	UpdateClient(client *entity.Client) error
-	//
-	//ExistsClient(name, email, phone string) (bool, error)
+
+	ExistsClient(name, email, phone string) (bool, error)
 }

@@ -11,6 +11,7 @@ var (
 	ErrDiscountCouponAlreadyExists = errors.New("discount coupon already exists")
 	ErrBookAlreadyExists           = errors.New("book already exists")
 	ErrSellerAlreadyExists         = errors.New("seller already exists")
+	ErrClientAlreadyExists         = errors.New("client already exists")
 
 	ErrTitleIsRequired         = errors.New("title is required")
 	ErrImageIsRequired         = errors.New("image is required")

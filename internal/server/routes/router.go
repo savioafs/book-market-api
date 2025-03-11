@@ -56,6 +56,12 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 
 	// client
 	clientRepositoryGorm := repository.NewClientRepositoryGorm(db)
+	clientUseCase := usecase.NewClientUseCase(clientRepositoryGorm)
+	clientController := controller.NewClientController(*clientUseCase)
+	client := router.Group("/client")
+	{
+		client.POST("/", clientController.CreateClient)
+	}
 
 	// sale
 	saleRepositoryGorm := repository.NewSaleRepositoryGorm(db)

@@ -88,7 +88,7 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 	}
 
 	sellerOutput := converter.SellerToOutputSaleDTO(seller)
-	clientOutput := converter.ConvertClientOutput(client)
+	clientOutput := converter.ConvertClientSaleOutput(client)
 	saleOutput := converter.SaleToOutputDTO(sale, discountCoupon, booksOutput, sellerOutput, clientOutput, discountPercentage, finalPrice)
 
 	return saleOutput, nil

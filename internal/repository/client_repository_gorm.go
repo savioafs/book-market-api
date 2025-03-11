@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
@@ -25,4 +26,19 @@ func (r *ClientRepositoryGorm) GetClientByPhone(phone string) (*entity.Client, e
 
 func (r *ClientRepositoryGorm) UpdateClient(buyer *entity.Client) error {
 	return nil
+}
+
+func (r *ClientRepositoryGorm) ExistsClient(name, email, phone string) (bool, error) {
+	var count int64
+
+	err := r.DB.Model(&entity.Client{}).Where("lower(name) LIKE lower(?) OR email = ? OR phone = ?  ", name, email, phone).Count(&count).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, nil
+	}
+
+	if err != nil {
+		return false, nil
+	}
+
+	return count > 0, nil
 }
