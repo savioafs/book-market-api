@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
@@ -74,4 +75,18 @@ func (r *DiscountCouponRepositoryGorm) DisableDiscountCoupon(id string) error {
 	discountCoupon.Active = false
 
 	return r.DB.Save(&discountCoupon).Error
+}
+
+func (r *DiscountCouponRepositoryGorm) ExistsDiscountCoupon(code string) (bool, error) {
+	var discountCoupon *entity.DiscountCoupon
+
+	err := r.DB.Take(&discountCoupon, "lower(code) = lower(?)", code).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }

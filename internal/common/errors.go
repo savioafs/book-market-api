@@ -9,7 +9,7 @@ var (
 	ErrBuyerIsRequired           = errors.New("buyer is required")
 	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
 
-	ErrRecordNotFound = errors.New("record not found")
+	DiscountCouponAlreadyExists = errors.New("discount coupon already exists")
 
 	ErrTitleIsRequired         = errors.New("title is required")
 	ErrImageIsRequired         = errors.New("image is required")

@@ -14,6 +14,8 @@ type BookStorer interface {
 	UpdateStockBookSale(bookID string, quantity int) error
 	UpdateStockBookRenew(bookID string, quantity int) error
 	DeleteBook(bookID string) error
+
+	//ExistsBook(title, imageUrl, isbn string) (bool, error)
 }
 
 type DiscountCouponStorer interface {
@@ -23,6 +25,8 @@ type DiscountCouponStorer interface {
 	GetDiscountCoupon(id string) (*entity.DiscountCoupon, error)
 	GetActiveDiscountsCoupons() (*[]entity.DiscountCoupon, error)
 	DisableDiscountCoupon(id string) error
+
+	ExistsDiscountCoupon(code string) (bool, error)
 }
 
 type SellerStorer interface {
@@ -34,6 +38,8 @@ type SellerStorer interface {
 	GetSellerByPhone(phone string) (*entity.Seller, error)
 	UpdateSeller(seller *entity.Seller) error
 	DeleteSeller(id string) error
+
+	//ExistsSeller(name, email, phone string) (bool, error)
 }
 
 type SaleStorer interface {
@@ -42,15 +48,21 @@ type SaleStorer interface {
 	GetSaleByID(id string) (*entity.Sale, error)
 	UpdateSale(sale *entity.Sale) error
 	DeleteSale(id string) error
+
+	//ExistsRecentSale(sellerID, discountCouponID, clientPhone string, booksIDs []string) (bool, error)
 }
 
 type ReviewStorer interface {
 	CreateReview(review *entity.Review) error
 	GetReviewByID(id string) (*entity.Review, error)
+
+	//ExistsReview(saleID string) (bool, error)
 }
 
 type ClientStorer interface {
 	CreateClient(client *entity.Client) error
 	GetClientByPhone(phone string) (*entity.Client, error)
 	UpdateClient(client *entity.Client) error
+	//
+	//ExistsClient(name, email, phone string) (bool, error)
 }

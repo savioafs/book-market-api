@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/usecase"
 	"net/http"
@@ -29,6 +31,12 @@ func (ct *DiscountCouponController) CreateDiscountCoupon(c *gin.Context) {
 	}
 
 	output, err := ct.useCase.CreateDiscountCoupon(input)
+	if errors.Is(err, common.DiscountCouponAlreadyExists) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "cannot create discount coupon",

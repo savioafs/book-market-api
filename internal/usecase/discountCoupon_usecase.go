@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -16,13 +17,22 @@ func NewDiscountCouponUseCase(repository repository.DiscountCouponStorer) *Disco
 }
 
 func (u *DiscountCouponUseCase) CreateDiscountCoupon(couponInput dto.DiscountCouponInputDTO) (dto.DiscountCouponOutputDTO, error) {
+
+	couponExists, err := u.repository.ExistsDiscountCoupon(couponInput.Code)
+	if err != nil {
+		return dto.DiscountCouponOutputDTO{}, err
+	}
+
+	if couponExists {
+		return dto.DiscountCouponOutputDTO{}, common.DiscountCouponAlreadyExists
+	}
+
 	discountCoupon, err := entity.NewDiscountCoupon(
 		couponInput.Code,
 		couponInput.DiscountPercentage,
 		couponInput.ExpirationDate,
 		couponInput.UsageLimit,
 	)
-
 	if err != nil {
 		return dto.DiscountCouponOutputDTO{}, err
 	}
