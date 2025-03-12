@@ -19,7 +19,7 @@ type Sale struct {
 	SaleDate         time.Time      `json:"sale_date"`
 	DiscountCouponID string         `json:"discount_coupon_id"`
 	DiscountCoupon   DiscountCoupon `json:"discount_coupon" gorm:"foreignKey:DiscountCouponID"`
-	IsReviewed       bool           `json:"isReviewed"`
+	IsReviewed       bool           `json:"is_reviewed"`
 	CreatedAt        time.Time      `json:"created_at"`
 	UpdatedAt        time.Time      `json:"updated_at"`
 }

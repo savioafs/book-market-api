@@ -56,7 +56,7 @@ type ReviewStorer interface {
 	CreateReview(review *entity.Review) error
 	GetReviewByID(id string) (*entity.Review, error)
 
-	//ExistsReview(saleID string) (bool, error)
+	ExistsReview(saleID string) (bool, error)
 }
 
 type ClientStorer interface {

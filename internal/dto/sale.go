@@ -34,7 +34,7 @@ type SaleOutputDTO struct {
 	DiscountCoupon     string                 `json:"discount_coupon"`
 	FinalPrice         float64                `json:"final_price"`
 	SaleDate           time.Time              `json:"sale_date"`
-	IsReviewed         bool                   `json:"isReviewed"`
+	IsReviewed         bool                   `json:"is_reviewed"`
 	CreatedAt          time.Time              `json:"created_at"`
 	UpdatedAt          time.Time              `json:"updated_at"`
 }

@@ -13,6 +13,8 @@ var (
 	ErrSellerAlreadyExists         = errors.New("seller already exists")
 	ErrClientAlreadyExists         = errors.New("client already exists")
 
+	ErrSaleAlreadyReviewed = errors.New("sale already review")
+
 	ErrTitleIsRequired         = errors.New("title is required")
 	ErrImageIsRequired         = errors.New("image is required")
 	ErrAuthorIsRequired        = errors.New("author is required")

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
@@ -26,4 +27,18 @@ func (r *ReviewRepositoryGorm) GetReviewByID(id string) (*entity.Review, error) 
 	}
 
 	return review, nil
+}
+
+func (r *ReviewRepositoryGorm) ExistsReview(saleID string) (bool, error) {
+	var isReviewed bool
+
+	err := r.DB.Model(&entity.Sale{}).Select("is_reviewed").Where("id = ?", saleID).Scan(&isReviewed).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+
+	return isReviewed, nil
 }

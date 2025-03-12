@@ -78,7 +78,7 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 
 	// review
 	reviewRepositoryGorm := repository.NewReviewRepositoryGorm(db)
-	reviewUseCase := usecase.NewReviewUseCase(reviewRepositoryGorm)
+	reviewUseCase := usecase.NewReviewUseCase(reviewRepositoryGorm, saleRepositoryGorm)
 	reviewController := controller.NewReviewController(*reviewUseCase)
 	review := router.Group("/review")
 	{
