@@ -21,7 +21,14 @@ func (r *ClientRepositoryGorm) CreateClient(client *entity.Client) error {
 }
 
 func (r *ClientRepositoryGorm) GetClientByPhone(phone string) (*entity.Client, error) {
-	return nil, nil
+	var client *entity.Client
+
+	err := r.DB.First(&client, "phone = ?", phone).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
 }
 
 func (r *ClientRepositoryGorm) UpdateClient(buyer *entity.Client) error {

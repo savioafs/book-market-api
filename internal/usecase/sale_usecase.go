@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"fmt"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -46,15 +47,20 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 	if seller == nil {
 		return dto.SaleOutputDTO{}, ErrSellerNotFound
 	}
-	var discountCoupon *entity.DiscountCoupon
+	var discountCoupon entity.DiscountCoupon
 	if saleInput.DiscountCouponID != "" {
 		discountCoupon, err = u.discountCouponRepository.GetDiscountCoupon(saleInput.DiscountCouponID)
 		if err != nil {
 			return dto.SaleOutputDTO{}, err
 		}
-		if discountCoupon == nil {
+		if discountCoupon.Code == "" {
 			log.Printf("invlaid discount coupon id %s", saleInput.DiscountCouponID)
 		}
+		err := u.discountCouponRepository.CountUse(discountCoupon.ID)
+		if err != nil {
+			log.Printf("cannot count use of coupon discount %s", saleInput.DiscountCouponID)
+		}
+		fmt.Println(discountCoupon)
 	}
 
 	client, err := u.clientRepository.GetClientByPhone(saleInput.ClientPhone)
@@ -66,13 +72,13 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 		books,
 		*seller,
 		*client,
-		*discountCoupon,
+		discountCoupon,
 	)
 	if err != nil {
 		return dto.SaleOutputDTO{}, err
 	}
 
-	discountPercentage, finalPrice, err := sale.ApplyDiscountPercentageAndFinalPrice(discountCoupon)
+	discountPercentage, finalPrice, err := sale.ApplyDiscountPercentageAndFinalPrice(&discountCoupon)
 	if err != nil {
 		return dto.SaleOutputDTO{}, err
 	}
@@ -89,7 +95,7 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 
 	sellerOutput := converter.SellerToOutputSaleDTO(seller)
 	clientOutput := converter.ConvertClientSaleOutput(client)
-	saleOutput := converter.SaleToOutputDTO(sale, discountCoupon, booksOutput, sellerOutput, clientOutput, discountPercentage, finalPrice)
+	saleOutput := converter.SaleToOutputDTO(sale, &discountCoupon, booksOutput, sellerOutput, clientOutput, discountPercentage, finalPrice)
 
 	return saleOutput, nil
 }

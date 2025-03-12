@@ -42,12 +42,12 @@ func (r *DiscountCouponRepositoryGorm) CountUse(id string) error {
 	return r.DB.Save(&discountCoupon).Error
 }
 
-func (r *DiscountCouponRepositoryGorm) GetDiscountCoupon(id string) (*entity.DiscountCoupon, error) {
-	var discountCoupon *entity.DiscountCoupon
+func (r *DiscountCouponRepositoryGorm) GetDiscountCoupon(id string) (entity.DiscountCoupon, error) {
+	var discountCoupon entity.DiscountCoupon
 
 	err := r.DB.First(&discountCoupon, "id = ?", id).Error
 	if err != nil {
-		return nil, err
+		return entity.DiscountCoupon{}, err
 	}
 
 	return discountCoupon, nil

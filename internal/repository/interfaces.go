@@ -22,7 +22,7 @@ type DiscountCouponStorer interface {
 	CreateDiscountCoupon(coupon *entity.DiscountCoupon) error
 	GetAllDiscountCoupons() ([]*entity.DiscountCoupon, error)
 	CountUse(id string) error
-	GetDiscountCoupon(id string) (*entity.DiscountCoupon, error)
+	GetDiscountCoupon(id string) (entity.DiscountCoupon, error)
 	GetActiveDiscountsCoupons() (*[]entity.DiscountCoupon, error)
 	DisableDiscountCoupon(id string) error
 
