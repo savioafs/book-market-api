@@ -37,7 +37,13 @@ func (r *DiscountCouponRepositoryGorm) CountUse(id string) error {
 		return err
 	}
 
-	discountCoupon.UsedCount += 1
+	if discountCoupon.Active {
+		discountCoupon.UsedCount += 1
+	}
+
+	if discountCoupon.UsedCount == discountCoupon.UsageLimit {
+		discountCoupon.Active = false
+	}
 
 	return r.DB.Save(&discountCoupon).Error
 }

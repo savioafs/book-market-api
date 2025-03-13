@@ -49,7 +49,7 @@ type SaleStorer interface {
 	UpdateSale(sale *entity.Sale) error
 	DeleteSale(id string) error
 
-	//ExistsRecentSale(sellerID, discountCouponID, clientPhone string, booksIDs []string) (bool, error)
+	ExistsRecentSale(sellerID, clientPhone string, booksIDs []string, withInMinutes int) (bool, error)
 }
 
 type ReviewStorer interface {

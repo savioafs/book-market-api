@@ -53,6 +53,23 @@ func (r *SaleRepositoryGorm) UpdateSale(sale *entity.Sale) error {
 	return err
 }
 
+func (r *SaleRepositoryGorm) ExistsRecentSale(sellerID, clientPhone string, booksIDs []string, withInMinutes int) (bool, error) {
+	var count int64
+
+	minTime := time.Now().Add(-time.Duration(withInMinutes) * time.Minute)
+
+	err := r.DB.Table("sales").Joins("JOIN sale_books sb ON sb.sale_id = sales.id").
+		Where("sales.seller_id = ? AND sales.client_phone = ? AND sales.created_at >= ?", sellerID, clientPhone, minTime).
+		Where("sb.book_id IN ?", booksIDs).
+		Count(&count).Error
+
+	if err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}
+
 func (r *SaleRepositoryGorm) DeleteSale(id string) error {
 	res := r.DB.Delete(&entity.Sale{}, "id = ?", id)
 	if res.Error != nil {
