@@ -85,7 +85,7 @@ func (s *Sale) ApplyDiscountPercentageAndFinalPrice(discountCoupon *DiscountCoup
 	var discountPercentage float64
 	var finalPrice float64
 
-	if discountCoupon == nil {
+	if discountCoupon.ID == "" {
 		discountPercentage = 0
 		finalPrice = s.TotalPrice
 		return discountPercentage, finalPrice, nil
