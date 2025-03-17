@@ -12,7 +12,14 @@ func InitGorm(dsn string) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&entity.Book{}, &entity.DiscountCoupon{}, &entity.Seller{}, &entity.Sale{}, &entity.Review{})
+	err = db.AutoMigrate(
+		&entity.Book{},
+		&entity.DiscountCoupon{},
+		&entity.Seller{},
+		&entity.Sale{},
+		&entity.Review{},
+		&entity.Client{},
+	)
 	if err != nil {
 		return nil, err
 	}
