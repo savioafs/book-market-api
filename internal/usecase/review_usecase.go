@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
@@ -26,6 +27,8 @@ func (u *ReviewUseCase) CreateReview(reviewInput dto.ReviewInputDTO) (dto.Review
 		return dto.ReviewOutputDTO{}, err
 	}
 
+	fmt.Println(reviewExists)
+
 	if reviewExists {
 		return dto.ReviewOutputDTO{}, common.ErrSaleAlreadyReviewed
 	}
@@ -44,6 +47,11 @@ func (u *ReviewUseCase) CreateReview(reviewInput dto.ReviewInputDTO) (dto.Review
 		reviewInput.Rating,
 		reviewInput.Comment,
 	)
+	if err != nil {
+		return dto.ReviewOutputDTO{}, err
+	}
+
+	err = u.saleRepository.UpdateSaleReview(sale.ID)
 	if err != nil {
 		return dto.ReviewOutputDTO{}, err
 	}

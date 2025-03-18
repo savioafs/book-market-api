@@ -8,6 +8,8 @@ import (
 	"github.com/savioafs/book-market/internal/repository"
 )
 
+// TODO: generate metrics of reviews in seller profile
+
 type SellerUseCase struct {
 	repository repository.SellerStorer
 }

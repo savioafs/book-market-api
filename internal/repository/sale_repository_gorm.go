@@ -85,3 +85,9 @@ func (r *SaleRepositoryGorm) DeleteSale(id string) error {
 
 	return nil
 }
+
+func (r *SaleRepositoryGorm) UpdateSaleReview(id string) error {
+	err := r.DB.Model(&entity.Sale{}).Where("id = ?", id).Update("is_reviewed", true).Error
+
+	return err
+}

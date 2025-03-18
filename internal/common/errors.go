@@ -13,7 +13,7 @@ var (
 	ErrSellerAlreadyExists         = errors.New("seller already exists")
 	ErrClientAlreadyExists         = errors.New("client already exists")
 
-	ErrSaleAlreadyReviewed = errors.New("sale already review")
+	ErrSaleAlreadyReviewed = errors.New("sale already receive review")
 	ErrExistsRecentSale    = errors.New("sale already registered. please wait 5 minutes before registering another with the same parameters")
 
 	ErrTitleIsRequired         = errors.New("title is required")

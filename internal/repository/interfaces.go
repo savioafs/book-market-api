@@ -50,6 +50,7 @@ type SaleStorer interface {
 	DeleteSale(id string) error
 
 	ExistsRecentSale(sellerID, clientPhone string, booksIDs []string, withInMinutes int) (bool, error)
+	UpdateSaleReview(id string) error
 }
 
 type ReviewStorer interface {

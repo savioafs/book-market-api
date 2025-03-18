@@ -9,7 +9,7 @@ func ConvertReviewOutput(review *entity.Review, sale *entity.Sale) dto.ReviewOut
 	return dto.ReviewOutputDTO{
 		ID:        review.ID,
 		SaleID:    sale.ID,
-		Seller:    sale.Seller.Name,
+		Seller:    sale.Code,
 		SaleDate:  sale.CreatedAt,
 		Rating:    review.Rating,
 		Comment:   review.Comment,
