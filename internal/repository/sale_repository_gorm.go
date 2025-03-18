@@ -34,6 +34,9 @@ func (r *SaleRepositoryGorm) GetSaleByID(id string) (*entity.Sale, error) {
 	var sale *entity.Sale
 
 	err := r.DB.First(&sale, "id = ?", id).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
 	if err != nil {
 		return nil, err
 	}

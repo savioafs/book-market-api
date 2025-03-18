@@ -15,7 +15,9 @@ type ReviewUseCase struct {
 
 func NewReviewUseCase(reviewRepository repository.ReviewStorer, saleRepository repository.SaleStorer) *ReviewUseCase {
 	return &ReviewUseCase{
-		reviewRepository: reviewRepository}
+		reviewRepository: reviewRepository,
+		saleRepository:   saleRepository,
+	}
 }
 
 func (u *ReviewUseCase) CreateReview(reviewInput dto.ReviewInputDTO) (dto.ReviewOutputDTO, error) {
@@ -30,6 +32,10 @@ func (u *ReviewUseCase) CreateReview(reviewInput dto.ReviewInputDTO) (dto.Review
 
 	sale, err := u.saleRepository.GetSaleByID(reviewInput.SaleID)
 	if err != nil {
+		return dto.ReviewOutputDTO{}, err
+	}
+
+	if sale == nil {
 		return dto.ReviewOutputDTO{}, err
 	}
 
