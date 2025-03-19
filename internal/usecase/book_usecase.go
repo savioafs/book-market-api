@@ -1,9 +1,6 @@
 package usecase
 
 import (
-	"fmt"
-	"github.com/savioafs/book-market/internal/actions"
-	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/converter"
 	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/entity"
@@ -19,14 +16,14 @@ func NewBookUseCase(repository repository.BookStorer) *BookUseCase {
 }
 
 func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO, error) {
-	bookExists, err := u.repository.ExistsBook(bookInput.Title, bookInput.ImageURL, bookInput.ISBN)
-	if err != nil {
-		return dto.BookOutputDTO{}, err
-	}
-
-	if bookExists {
-		return dto.BookOutputDTO{}, common.ErrBookAlreadyExists
-	}
+	//bookExists, err := u.repository.ExistsBook(bookInput.Title, bookInput.ImageURL, bookInput.ISBN)
+	//if err != nil {
+	//	return dto.BookOutputDTO{}, err
+	//}
+	//
+	//if bookExists {
+	//	return dto.BookOutputDTO{}, common.ErrBookAlreadyExists
+	//}
 
 	book, err := entity.NewBook(
 		bookInput.Title,
@@ -53,6 +50,8 @@ func (u *BookUseCase) CreateBook(bookInput dto.BookInputDTO) (dto.BookOutputDTO,
 
 	return bookOutput, nil
 }
+
+/*
 
 func (u *BookUseCase) GetAllBooks() ([]dto.BookOutputDTO, error) {
 	var booksOutput []dto.BookOutputDTO
@@ -221,3 +220,4 @@ func (u *BookUseCase) DeleteBook(bookID string) error {
 
 	return nil
 }
+*/

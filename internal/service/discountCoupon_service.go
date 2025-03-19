@@ -1,12 +1,6 @@
 package service
 
-import (
-	"database/sql"
-	"github.com/savioafs/book-market/internal/repository"
-	"log"
-	"time"
-)
-
+/*
 func MonitorCouponsByExpirationDate(db *sql.DB) {
 	for {
 		time.Sleep(time.Second * 3)
@@ -30,3 +24,4 @@ func MonitorCouponsByExpirationDate(db *sql.DB) {
 		}
 	}
 }
+*/

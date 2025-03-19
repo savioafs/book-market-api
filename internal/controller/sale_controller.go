@@ -1,12 +1,7 @@
 package controller
 
 import (
-	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/savioafs/book-market/internal/common"
-	"github.com/savioafs/book-market/internal/dto"
 	"github.com/savioafs/book-market/internal/usecase"
-	"net/http"
 )
 
 type SaleController struct {
@@ -17,6 +12,7 @@ func NewSaleController(useCase usecase.SaleUseCase) *SaleController {
 	return &SaleController{useCase: useCase}
 }
 
+/*
 func (ct *SaleController) CreateSale(c *gin.Context) {
 	var sale dto.SaleInputDTO
 
@@ -50,3 +46,4 @@ func (ct *SaleController) GetAllSales(c *gin.Context) {}
 func (ct *SaleController) GetSaleByID(c *gin.Context) {}
 func (ct *SaleController) UpdateSale(c *gin.Context)  {}
 func (ct *SaleController) DeleteSale(c *gin.Context)  {}
+*/

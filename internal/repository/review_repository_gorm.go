@@ -2,9 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"errors"
-	"github.com/savioafs/book-market/internal/entity"
-	"gorm.io/gorm"
 )
 
 type ReviewRepositoryGorm struct {
@@ -15,6 +12,7 @@ func NewReviewRepositoryGorm(db *sql.DB) *ReviewRepositoryGorm {
 	return &ReviewRepositoryGorm{DB: db}
 }
 
+/*
 func (r *ReviewRepositoryGorm) CreateReview(review *entity.Review) error {
 	return r.DB.Create(review).Error
 }
@@ -43,3 +41,4 @@ func (r *ReviewRepositoryGorm) ExistsReview(saleID string) (bool, error) {
 
 	return isReviewed, nil
 }
+*/

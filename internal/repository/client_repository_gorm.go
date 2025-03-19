@@ -2,9 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"errors"
-	"github.com/savioafs/book-market/internal/entity"
-	"gorm.io/gorm"
 )
 
 type ClientRepositoryGorm struct {
@@ -16,6 +13,8 @@ func NewClientRepositoryGorm(db *sql.DB) *ClientRepositoryGorm {
 		DB: db,
 	}
 }
+
+/*
 
 func (r *ClientRepositoryGorm) CreateClient(client *entity.Client) error {
 	return r.DB.Create(&client).Error
@@ -50,3 +49,4 @@ func (r *ClientRepositoryGorm) ExistsClient(name, email, phone string) (bool, er
 
 	return count > 0, nil
 }
+*/
