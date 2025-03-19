@@ -1,14 +1,14 @@
 package routes
 
 import (
+	"database/sql"
 	"github.com/gin-gonic/gin"
 	"github.com/savioafs/book-market/internal/controller"
 	"github.com/savioafs/book-market/internal/repository"
 	"github.com/savioafs/book-market/internal/usecase"
-	"gorm.io/gorm"
 )
 
-func SetupRoutes(router *gin.Engine, db *gorm.DB) {
+func SetupRoutes(router *gin.Engine, db *sql.DB) {
 
 	// book
 	bookRepositoryGorm := repository.NewBookRepositoryGorm(db)
@@ -85,5 +85,4 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		review.POST("/", reviewController.CreateReview)
 		review.GET("/", reviewController.GetReviewByID)
 	}
-
 }

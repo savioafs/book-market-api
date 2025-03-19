@@ -1,0 +1,10 @@
+CREATE TABLE sellers (
+    id VARCHAR(36) PRIMARY KEY NOT NULL ,
+    code VARCHAR(6) NOT NULL UNIQUE ,
+    name VARCHAR(100) NOT NULL ,
+    email VARCHAR(100) NOT NULL ,
+    phone VARCHAR(11) NOT NULL ,
+    rating FLOAT DEFAULT 5,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP
+)

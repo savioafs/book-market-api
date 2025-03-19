@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
@@ -8,10 +9,10 @@ import (
 )
 
 type SaleRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewSaleRepositoryGorm(db *gorm.DB) *SaleRepositoryGorm {
+func NewSaleRepositoryGorm(db *sql.DB) *SaleRepositoryGorm {
 	return &SaleRepositoryGorm{DB: db}
 }
 

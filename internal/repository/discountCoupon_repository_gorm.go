@@ -1,16 +1,17 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
 
 type DiscountCouponRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewDiscountCouponRepositoryGorm(db *gorm.DB) *DiscountCouponRepositoryGorm {
+func NewDiscountCouponRepositoryGorm(db *sql.DB) *DiscountCouponRepositoryGorm {
 	return &DiscountCouponRepositoryGorm{DB: db}
 }
 

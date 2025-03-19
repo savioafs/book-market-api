@@ -1,13 +1,23 @@
 package config
 
-func LoadConfig() string {
-	//dbHost := os.Getenv("DB_HOST")
-	//dbPort := os.Getenv("DB_PORT")
-	//dbUser := os.Getenv("DB_USER")
-	//dbPassword := os.Getenv("DB_PASSWORD")
-	//dbname := os.Getenv("DB_NAME")
-	//
-	//return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbname)
+import (
+	"fmt"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
+)
 
-	return "./internal/database/main.db"
+func LoadConfig() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("err to load .env:", err)
+	}
+
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbname)
 }

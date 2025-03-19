@@ -1,16 +1,17 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
 
 type ReviewRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewReviewRepositoryGorm(db *gorm.DB) *ReviewRepositoryGorm {
+func NewReviewRepositoryGorm(db *sql.DB) *ReviewRepositoryGorm {
 	return &ReviewRepositoryGorm{DB: db}
 }
 

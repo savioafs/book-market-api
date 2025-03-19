@@ -7,7 +7,7 @@ import (
 )
 
 type Book struct {
-	ID            string    `json:"id" gorm:"primary_key"`
+	ID            string    `json:"id" `
 	Title         string    `json:"title"`
 	ImageURL      string    `json:"image_url"`
 	Author        string    `json:"author"`

@@ -1,16 +1,17 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/savioafs/book-market/internal/entity"
 	"gorm.io/gorm"
 )
 
 type ClientRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewClientRepositoryGorm(db *gorm.DB) *ClientRepositoryGorm {
+func NewClientRepositoryGorm(db *sql.DB) *ClientRepositoryGorm {
 	return &ClientRepositoryGorm{
 		DB: db,
 	}

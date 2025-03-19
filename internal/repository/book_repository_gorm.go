@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/savioafs/book-market/internal/common"
 	"github.com/savioafs/book-market/internal/entity"
@@ -10,10 +11,10 @@ import (
 )
 
 type BookRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewBookRepositoryGorm(db *gorm.DB) *BookRepositoryGorm {
+func NewBookRepositoryGorm(db *sql.DB) *BookRepositoryGorm {
 	return &BookRepositoryGorm{DB: db}
 }
 

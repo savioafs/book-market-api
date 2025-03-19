@@ -10,15 +10,17 @@ import (
 )
 
 func main() {
-	dsn := config.LoadConfig()
+	connectionString := config.LoadConfig()
 
-	db, err := database.InitGorm(dsn)
+	db, err := database.InitMySQL(connectionString)
 	if err != nil {
 		log.Fatal("fail to init database", err)
 	}
 
+	defer db.Close()
+
 	go service.MonitorCouponsByExpirationDate(db)
-	fmt.Println("server ir running 🚀")
+	fmt.Println("server is running 🚀")
 	sv := server.NewServer("8080", db)
 
 	sv.Run()

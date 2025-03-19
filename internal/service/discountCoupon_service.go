@@ -1,13 +1,13 @@
 package service
 
 import (
+	"database/sql"
 	"github.com/savioafs/book-market/internal/repository"
-	"gorm.io/gorm"
 	"log"
 	"time"
 )
 
-func MonitorCouponsByExpirationDate(db *gorm.DB) {
+func MonitorCouponsByExpirationDate(db *sql.DB) {
 	for {
 		time.Sleep(time.Second * 3)
 
