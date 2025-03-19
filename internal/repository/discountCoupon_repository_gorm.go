@@ -1,18 +1,18 @@
 package repository
 
 import (
-	"errors"
-	"github.com/savioafs/book-market/internal/entity"
-	"gorm.io/gorm"
+	"database/sql"
 )
 
 type DiscountCouponRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewDiscountCouponRepositoryGorm(db *gorm.DB) *DiscountCouponRepositoryGorm {
+func NewDiscountCouponRepositoryGorm(db *sql.DB) *DiscountCouponRepositoryGorm {
 	return &DiscountCouponRepositoryGorm{DB: db}
 }
+
+/*
 
 func (r *DiscountCouponRepositoryGorm) CreateDiscountCoupon(coupon *entity.DiscountCoupon) error {
 	return r.DB.Create(coupon).Error
@@ -96,3 +96,4 @@ func (r *DiscountCouponRepositoryGorm) ExistsDiscountCoupon(code string) (bool, 
 
 	return count > 0, nil
 }
+*/

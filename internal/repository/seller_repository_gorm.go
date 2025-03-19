@@ -1,20 +1,18 @@
 package repository
 
 import (
-	"errors"
-	"github.com/savioafs/book-market/internal/entity"
-	"gorm.io/gorm"
-	"time"
+	"database/sql"
 )
 
 type SellerRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewSellerRepositoryGorm(db *gorm.DB) *SellerRepositoryGorm {
+func NewSellerRepositoryGorm(db *sql.DB) *SellerRepositoryGorm {
 	return &SellerRepositoryGorm{DB: db}
 }
 
+/*
 func (r *SellerRepositoryGorm) CreateSeller(seller *entity.Seller) error {
 	return r.DB.Create(seller).Error
 }
@@ -124,3 +122,4 @@ func (r *SellerRepositoryGorm) ExistsSeller(name, email, phone string) (bool, er
 
 	return count > 0, nil
 }
+*/

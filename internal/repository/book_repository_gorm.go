@@ -1,26 +1,48 @@
 package repository
 
 import (
-	"errors"
-	"github.com/savioafs/book-market/internal/common"
+	"database/sql"
 	"github.com/savioafs/book-market/internal/entity"
-	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
-	"time"
 )
 
 type BookRepositoryGorm struct {
-	DB *gorm.DB
+	DB *sql.DB
 }
 
-func NewBookRepositoryGorm(db *gorm.DB) *BookRepositoryGorm {
+func NewBookRepositoryGorm(db *sql.DB) *BookRepositoryGorm {
 	return &BookRepositoryGorm{DB: db}
 }
 
-func (r *BookRepositoryGorm) CreateBook(book *entity.Book) error {
-	return r.DB.Create(&book).Error
+func (r *BookRepositoryGorm) CreateBook(b *entity.Book) error {
+	stmt, err := r.DB.Prepare("insert into books(id, title, image_url, author, publisher, isbn, price, stock, category, published_year, description, created_at) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+	if err != nil {
+		return err
+	}
+
+	defer stmt.Close()
+
+	_, err = stmt.Exec(
+		b.ID,
+		b.Title,
+		b.ImageURL,
+		b.Author,
+		b.Publisher,
+		b.ISBN,
+		b.Price,
+		b.Stock,
+		b.Category,
+		b.PublishedYear,
+		b.Description,
+		b.CreatedAt,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
+/*
 func (r *BookRepositoryGorm) GetAllBooks() ([]entity.Book, error) {
 	var books []entity.Book
 
@@ -165,3 +187,4 @@ func (r *BookRepositoryGorm) ExistsBook(title, imageUrl, isbn string) (bool, err
 
 	return count > 0, nil
 }
+*/

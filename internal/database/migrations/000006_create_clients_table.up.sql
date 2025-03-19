@@ -1,0 +1,8 @@
+CREATE TABLE clients (
+    id VARCHAR(36) PRIMARY KEY NOT NULL ,
+    name VARCHAR(100) NOT NULL ,
+    email VARCHAR(100) NOT NULL UNIQUE ,
+    phone VARCHAR(11) NOT NULL UNIQUE ,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP
+)

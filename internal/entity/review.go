@@ -7,7 +7,7 @@ import (
 )
 
 type Review struct {
-	ID        string    `json:"id" gorm:"primary_key"`
+	ID        string    `json:"id"`
 	SaleID    string    `json:"sale_id"`
 	Sale      Sale      `json:"sale" gorm:"foreignKey:SaleID"`
 	Rating    float32   `json:"rating"`

@@ -1,10 +1,6 @@
 package converter
 
-import (
-	"github.com/savioafs/book-market/internal/dto"
-	"github.com/savioafs/book-market/internal/entity"
-)
-
+/*
 func SaleToOutputDTO(sale *entity.Sale, discountCoupon *entity.DiscountCoupon, bookOutput []dto.BookForSaleDTO, sellerOutput dto.SellerForSaleDTO, clientOutput dto.ClientOutputForSaleDTO, discountPercentage, finalPrice float64) dto.SaleOutputDTO {
 	return dto.SaleOutputDTO{
 		ID:                 sale.ID,
@@ -21,3 +17,4 @@ func SaleToOutputDTO(sale *entity.Sale, discountCoupon *entity.DiscountCoupon, b
 		CreatedAt:          sale.CreatedAt,
 	}
 }
+*/

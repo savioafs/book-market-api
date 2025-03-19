@@ -4,18 +4,18 @@ import "github.com/savioafs/book-market/internal/entity"
 
 type BookStorer interface {
 	CreateBook(book *entity.Book) error
-	GetAllBooks() ([]entity.Book, error)
-	GetBookByID(id string) (*entity.Book, error)
-	GetBooksByIDs(ids []string) ([]entity.Book, error)
-	GetBooksByCategory(category string) ([]*entity.Book, error)
-	GetBooksByPublishedYear(publishedYear int) ([]*entity.Book, error)
-	GetBooksByAuthor(author string) ([]*entity.Book, error)
-	UpdateBook(book *entity.Book) error
-	UpdateStockBookSale(bookID string, quantity int) error
-	UpdateStockBookRenew(bookID string, quantity int) error
-	DeleteBook(bookID string) error
-
-	ExistsBook(title, imageUrl, isbn string) (bool, error)
+	//GetAllBooks() ([]entity.Book, error)
+	//GetBookByID(id string) (*entity.Book, error)
+	//GetBooksByIDs(ids []string) ([]entity.Book, error)
+	//GetBooksByCategory(category string) ([]*entity.Book, error)
+	//GetBooksByPublishedYear(publishedYear int) ([]*entity.Book, error)
+	//GetBooksByAuthor(author string) ([]*entity.Book, error)
+	//UpdateBook(book *entity.Book) error
+	//UpdateStockBookSale(bookID string, quantity int) error
+	//UpdateStockBookRenew(bookID string, quantity int) error
+	//DeleteBook(bookID string) error
+	//
+	//ExistsBook(title, imageUrl, isbn string) (bool, error)
 }
 
 type DiscountCouponStorer interface {

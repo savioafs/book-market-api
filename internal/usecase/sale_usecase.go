@@ -2,13 +2,7 @@ package usecase
 
 import (
 	"errors"
-	"fmt"
-	"github.com/savioafs/book-market/internal/common"
-	"github.com/savioafs/book-market/internal/converter"
-	"github.com/savioafs/book-market/internal/dto"
-	"github.com/savioafs/book-market/internal/entity"
 	"github.com/savioafs/book-market/internal/repository"
-	"log"
 )
 
 var (
@@ -32,6 +26,8 @@ func NewSaleUseCase(saleRepository repository.SaleStorer, bookRepository reposit
 		clientRepository:         clientRepository,
 	}
 }
+
+/*
 
 func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO, error) {
 	existsRecentSale, err := u.saleRepository.ExistsRecentSale(saleInput.SellerID, saleInput.ClientPhone, saleInput.BooksIDs, 5)
@@ -108,3 +104,4 @@ func (u *SaleUseCase) CreateSale(saleInput dto.SaleInputDTO) (dto.SaleOutputDTO,
 
 	return saleOutput, nil
 }
+*/

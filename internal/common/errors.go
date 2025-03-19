@@ -4,8 +4,8 @@ import "errors"
 
 var (
 	ErrBookIsRequired            = errors.New("book is required")
-	ErrSellerIsRequired          = errors.New("seller is required")
-	ErrBuyerIsRequired           = errors.New("buyer is required")
+	ErrSellerCodeIsRequired      = errors.New("seller code is required")
+	ErrClientPhoneIsRequired     = errors.New("client phone is required")
 	ErrDiscountCouponIsNotActive = errors.New("discount coupon is not active")
 
 	ErrDiscountCouponAlreadyExists = errors.New("discount coupon already exists")
